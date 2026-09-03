@@ -4,22 +4,19 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   // ==========================================================================
-  // 0.0 ULTRA-RESPONSIVE LIGHTWEIGHT LENIS SMOOTH SCROLLING ENGINE
+  // 0.0 LENIS SMOOTH SCROLLING ENGINE & GSAP SCROLLTRIGGER SYNCHRONIZATION
   // ==========================================================================
   let lenis = null;
-  const navbar = document.querySelector('.navbar');
-
   if (typeof Lenis !== 'undefined') {
     lenis = new Lenis({
-      duration: 0.85, // Crisp, instant, featherlight glide
+      duration: 0.9,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 1.15, // Effortless wheel travel
-      touchMultiplier: 1.8,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.2,
       infinite: false,
-      syncTouch: true,
     });
 
     // Synchronize Lenis scroll event with GSAP ScrollTrigger
@@ -27,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
       lenis.on('scroll', ScrollTrigger.update);
     }
 
-    // Connect Lenis RAF to GSAP Ticker for 60/120fps lockstep
+    // Connect Lenis RAF to GSAP Ticker for 60/120fps smooth lockstep
     if (typeof gsap !== 'undefined') {
       gsap.ticker.add((time) => {
         lenis.raf(time * 1000);
@@ -44,17 +41,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Expose lenis instance globally
     window.lenis = lenis;
 
-    // High-performance direct sticky navbar handler
-    if (navbar) {
-      lenis.on('scroll', ({ scroll }) => {
-        if (scroll > 30) {
-          if (!navbar.classList.contains('is-sticky')) navbar.classList.add('is-sticky');
-        } else {
-          if (navbar.classList.contains('is-sticky')) navbar.classList.remove('is-sticky');
-        }
-      });
-    }
-
     // Smooth scroll for internal anchor navigation
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
       anchor.addEventListener('click', (e) => {
@@ -63,26 +49,48 @@ document.addEventListener('DOMContentLoaded', () => {
           const targetEl = document.querySelector(targetId);
           if (targetEl) {
             e.preventDefault();
-            lenis.scrollTo(targetEl, { offset: -60, duration: 0.85 });
+            lenis.scrollTo(targetEl, { offset: -60, duration: 0.9 });
           }
         }
       });
     });
-  } else if (navbar) {
-    let ticking = false;
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          if (window.scrollY > 30) {
-            navbar.classList.add('is-sticky');
-          } else {
-            navbar.classList.remove('is-sticky');
-          }
-          ticking = false;
-        });
-        ticking = true;
+  }
+
+  // 0. Sticky Navigation Bar & Mobile Menu Drawer Controls
+  const navbar = document.querySelector('.navbar');
+  const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+
+  if (navbar) {
+    let isSticky = false;
+    const updateNavbarSticky = (y) => {
+      const shouldBeSticky = y > 30;
+      if (shouldBeSticky !== isSticky) {
+        isSticky = shouldBeSticky;
+        if (isSticky) {
+          navbar.classList.add('is-sticky');
+        } else {
+          navbar.classList.remove('is-sticky');
+        }
       }
-    }, { passive: true });
+    };
+
+    if (lenis) {
+      lenis.on('scroll', (e) => {
+        updateNavbarSticky(e.scroll);
+      });
+    } else {
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            updateNavbarSticky(window.scrollY);
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }, { passive: true });
+    }
+    updateNavbarSticky(window.scrollY);
   }
 
   // Mobile Menu Fullscreen Overlay Controls
@@ -234,6 +242,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // 3. Smooth Hover Card Tilt Effects
+  const cards = document.querySelectorAll('.specialists-blue-card, .philosophy-card');
+  
+  cards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left - (rect.width / 2);
+      const y = e.clientY - rect.top - (rect.height / 2);
+      
+      const tiltX = (y / (rect.height / 2)) * -4;
+      const tiltY = (x / (rect.width / 2)) * 4;
+      
+      card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(-4px)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+    });
+  });
 
   // 4. GSAP Cinematic Banner Slider Animation System
   const bannerStage = document.getElementById('gsapPromoBanner');

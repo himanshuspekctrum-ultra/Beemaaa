@@ -108,30 +108,20 @@ body {
   overflow: visible;
 }
 
-/* Rendering Performance & Offscreen Painting Optimization */
-.services-section,
-.banner-slider-section,
-.featured-solutions-section,
-.mobile-app-section,
-.awards-showcase-section,
-.guiding-principles-section,
-.partners-section,
-.pro-footer {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 600px;
-}
-
 /* ==========================================================================
    1. HERO SECTION (ZENTARA DARK BLUE GLASS CONTAINER)
    ========================================================================== */
 .hero-card {
   position: relative;
   background: radial-gradient(circle at 75% 20%, #fff4e5 0%, #ffedd5b9 50%, #c1cbeca9 100%);
-  border-radius: var(--radius-lg);
-  padding: 24px 32px 36px 32px;
-  overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 28px;
+  padding: 32px 36px 40px 36px;
+  color: var(--text-dark);
+  overflow: visible;
+  box-shadow: 0 18px 45px rgba(251, 146, 60, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   min-height: 360px;
   z-index: 50;
   margin-bottom: 48px;
@@ -141,13 +131,14 @@ body {
 
 /* Floating Ambient Pastel Glass Orbs */
 .hero-glass-orb {
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  contain: paint;
   position: absolute;
   border-radius: 50%;
   pointer-events: none;
   z-index: 1;
-  will-change: transform;
-  transform: translateZ(0);
-  backface-visibility: hidden;
 }
 
 .hero-glass-orb.orb-top {
@@ -211,12 +202,12 @@ body {
   min-height: 44px;
   width: 100%;
   box-sizing: border-box;
-  background: rgba(255, 255, 255, 0.089);
-  backdrop-filter: blur(20px) saturate(190%);
-  -webkit-backdrop-filter: blur(20px) saturate(190%);
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.85);
   border-radius: 100px;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.9);
   transition: background 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
@@ -231,9 +222,9 @@ body {
   padding: 6px 20px;
   min-height: 44px;
   box-sizing: border-box;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(20px) saturate(190%);
-  -webkit-backdrop-filter: blur(20px) saturate(190%);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.95);
   border-radius: 100px;
   box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
@@ -255,14 +246,13 @@ body {
 .logo-icon {
   width: 24px;
   height: 24px;
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.9);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.05);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
 }
 
 .logo-icon svg {
@@ -274,16 +264,14 @@ body {
 }
 
 .nav-pill-menu {
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(20px) saturate(190%);
-  -webkit-backdrop-filter: blur(20px) saturate(190%);
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.6);
   border-radius: 100px;
   padding: 4px 6px;
   display: flex;
   align-items: center;
   gap: 2px;
-  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.03);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.02);
 }
 
 .nav-link {
@@ -383,8 +371,8 @@ a[href="#login"].nav-link:hover {
   margin-top: 10px;
   width: 580px;
   background: rgba(255, 255, 255, 0.966);
-  backdrop-filter: blur(28px) saturate(180%);
-  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border: 1.5px solid rgba(255, 255, 255, 0.95);
   border-radius: 20px;
   padding: 20px;
@@ -1862,11 +1850,10 @@ a[href="#login"].nav-link:hover {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #475569;
-  background: rgba(255, 255, 255, 0.78);
+  background: rgba(255, 255, 255, 0.92);
   border: 1px solid rgba(255, 255, 255, 0.95);
   padding: 5px 16px;
   border-radius: 100px;
-  backdrop-filter: blur(12px);
   box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
 }
 
@@ -2017,7 +2004,6 @@ a[href="#login"].nav-link:hover {
   font-size: 0.75rem;
   font-weight: 600;
   color: #1e293b;
-  backdrop-filter: blur(10px);
   box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
 }
 
@@ -2296,6 +2282,10 @@ a[href="#login"].nav-link:hover {
 
 /* Floating Ambient Pastel Glass Orbs (Matching Hero Orbs) */
 .gsap-glass-orb {
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  contain: paint;
   position: absolute;
   border-radius: 50%;
   pointer-events: none;
@@ -2394,11 +2384,10 @@ a[href="#login"].nav-link:hover {
   align-items: center;
   gap: 8px;
   align-self: flex-start;
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.95);
   padding: 6px 16px;
   border-radius: 30px;
-  backdrop-filter: blur(12px);
   box-shadow: 0 4px 15px rgba(15, 23, 42, 0.05);
 }
 
@@ -2469,7 +2458,6 @@ a[href="#login"].nav-link:hover {
   font-size: 0.88rem;
   color: #0f172a;
   font-weight: 600;
-  backdrop-filter: blur(10px);
   box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
 }
 
@@ -2534,8 +2522,7 @@ a[href="#login"].nav-link:hover {
 
 .gsap-stat-card {
   position: relative;
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.92);
   border: 1px solid rgba(255, 255, 255, 0.9);
   border-radius: 24px;
   padding: 36px 40px;
@@ -5327,8 +5314,8 @@ a[href="#login"].nav-link:hover {
     max-width: 100vw !important;
     max-height: 100vh !important;
     background: radial-gradient(circle at 75% 20%, #fff4e5 0%, #ffedd5b9 50%, #c1cbeca9 100%);
-    backdrop-filter: blur(36px) saturate(200%);
-    -webkit-backdrop-filter: blur(36px) saturate(200%);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
     z-index: 999999 !important;
     opacity: 0;
     visibility: hidden;
@@ -5857,8 +5844,8 @@ a[href="#login"].nav-link:hover {
     min-height: 40px !important;
     margin: 0 !important;
     background: rgba(255, 255, 255, 0.90) !important;
-    backdrop-filter: blur(20px) saturate(180%) !important;
-    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
     border: 1px solid rgba(255, 255, 255, 0.95) !important;
     border-radius: 100px !important;
     box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08) !important;
@@ -6081,8 +6068,8 @@ a[href="#login"].nav-link:hover {
     min-height: 38px !important;
     margin: 0 !important;
     background: rgba(255, 255, 255, 0.90) !important;
-    backdrop-filter: blur(20px) saturate(180%) !important;
-    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
     border: 1px solid rgba(255, 255, 255, 0.95) !important;
     border-radius: 100px !important;
     box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08) !important;

@@ -3,6 +3,59 @@
 // ==========================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
+  // ==========================================================================
+  // 0.0 LENIS SMOOTH SCROLLING ENGINE & GSAP SCROLLTRIGGER SYNCHRONIZATION
+  // ==========================================================================
+  let lenis = null;
+  if (typeof Lenis !== 'undefined') {
+    lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.5,
+      infinite: false,
+    });
+
+    // Synchronize Lenis scroll event with GSAP ScrollTrigger
+    if (typeof ScrollTrigger !== 'undefined') {
+      lenis.on('scroll', ScrollTrigger.update);
+    }
+
+    // Connect Lenis RAF to GSAP Ticker for 60/120fps smooth lockstep
+    if (typeof gsap !== 'undefined') {
+      gsap.ticker.add((time) => {
+        lenis.raf(time * 1000);
+      });
+      gsap.ticker.lagSmoothing(0);
+    } else {
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+    }
+
+    // Expose lenis instance globally
+    window.lenis = lenis;
+
+    // Smooth scroll for internal anchor navigation
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener('click', (e) => {
+        const targetId = anchor.getAttribute('href');
+        if (targetId && targetId !== '#' && !anchor.classList.contains('trigger-contact-modal')) {
+          const targetEl = document.querySelector(targetId);
+          if (targetEl) {
+            e.preventDefault();
+            lenis.scrollTo(targetEl, { offset: -60, duration: 1.2 });
+          }
+        }
+      });
+    });
+  }
+
   // 0. Sticky Navigation Bar & Mobile Menu Drawer Controls
   const navbar = document.querySelector('.navbar');
   const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
@@ -31,6 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
       mobileNavOverlay.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
       document.body.style.touchAction = 'none';
+      if (window.lenis) window.lenis.stop();
     }
   };
 
@@ -40,6 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
       mobileNavOverlay.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
       document.body.style.touchAction = '';
+      if (window.lenis) window.lenis.start();
     }
   };
 
@@ -90,11 +145,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const openModal = () => {
     modalOverlay.classList.add('active');
     document.body.style.overflow = 'hidden';
+    if (window.lenis) window.lenis.stop();
   };
 
   const closeModal = () => {
     modalOverlay.classList.remove('active');
     document.body.style.overflow = '';
+    if (window.lenis) window.lenis.start();
   };
 
   contactTriggers.forEach(trigger => {

@@ -1,0 +1,1870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zentara — Where Founders Build Ambitious Startups</title>
+  <meta name="description" content="Zentara is a premier venture studio that partners with ambitious founders to build, launch, and scale transformative companies.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- FULL-SCREEN MOBILE OVERLAY MENU (DIRECT BODY CHILD FOR 100% VIEWPORT COVERAGE) -->
+  <div class="mobile-fullscreen-overlay" id="mobileNavOverlay" aria-hidden="true">
+    <div class="mobile-overlay-header">
+      <a href="#" class="brand-logo">
+        <span class="logo-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 16c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/>
+            <circle cx="12" cy="12" r="2.5"/>
+          </svg>
+        </span>
+        Beema
+      </a>
+      <button class="mobile-overlay-close-btn" id="mobileOverlayCloseBtn" aria-label="Close Menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <div class="mobile-overlay-body">
+      <!-- Products Tree Accordion -->
+      <div class="mobile-overlay-dropdown" id="mobileProductsDropdown">
+        <button class="mobile-overlay-link mobile-dropdown-trigger" id="mobileProductsTrigger">
+          <div class="link-left">
+            <span class="menu-icon-badge icon-orange">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+            </span>
+            <span>Products</span>
+          </div>
+          <svg class="chevron-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="mobile-tree-container">
+          <!-- Tree Branch 1: Life Insurance -->
+          <div class="tree-node">
+            <div class="tree-node-title">
+              <span class="tree-node-dot dot-orange"></span>
+              <span>Life Insurance</span>
+            </div>
+            <div class="tree-sub-list">
+              <a href="#child-plan" class="tree-leaf-item trigger-contact-modal">Child Plan</a>
+              <a href="#wealth-plan" class="tree-leaf-item trigger-contact-modal">Wealth Plan</a>
+              <a href="#whole-life" class="tree-leaf-item trigger-contact-modal">Whole Life Plan</a>
+              <a href="#joint-life" class="tree-leaf-item trigger-contact-modal">Joint Life Plan</a>
+              <a href="#guaranteed-plan" class="tree-leaf-item trigger-contact-modal">Guaranteed Plan</a>
+              <a href="#money-back" class="tree-leaf-item trigger-contact-modal">Money Back Plan</a>
+              <a href="#pension-plan" class="tree-leaf-item trigger-contact-modal">Pension Plan</a>
+              <a href="#retirement-plan" class="tree-leaf-item trigger-contact-modal">Retirement Plan</a>
+            </div>
+          </div>
+
+          <!-- Tree Branch 2: Health Insurance -->
+          <div class="tree-node">
+            <div class="tree-node-title">
+              <span class="tree-node-dot dot-emerald"></span>
+              <span>Health Insurance</span>
+            </div>
+            <div class="tree-sub-list">
+              <a href="#individual-plan" class="tree-leaf-item trigger-contact-modal">Individual Plan</a>
+              <a href="#family-health" class="tree-leaf-item trigger-contact-modal">Family Health Plan</a>
+              <a href="#top-up" class="tree-leaf-item trigger-contact-modal">Top-UP Plan</a>
+              <a href="#group-health" class="tree-leaf-item trigger-contact-modal">Group Health Plan</a>
+            </div>
+          </div>
+
+          <!-- Tree Branch 3: General Insurance -->
+          <div class="tree-node">
+            <div class="tree-node-title">
+              <span class="tree-node-dot dot-blue"></span>
+              <span>General Insurance</span>
+            </div>
+            <div class="tree-sub-list">
+              <a href="#motor-insurance" class="tree-leaf-item trigger-contact-modal">Motor Insurance</a>
+              <a href="#travel-insurance" class="tree-leaf-item trigger-contact-modal">Travel Insurance</a>
+              <a href="#fire-insurance" class="tree-leaf-item trigger-contact-modal">Fire Insurance</a>
+              <a href="#accidental-insurance" class="tree-leaf-item trigger-contact-modal">Accidental Insurance</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <a href="#saathi" class="mobile-overlay-link trigger-contact-modal">
+        <div class="link-left">
+          <span class="menu-icon-badge icon-emerald">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          </span>
+          <span>SAATHI (POS)</span>
+        </div>
+      </a>
+
+      <a href="#claims" class="mobile-overlay-link trigger-contact-modal">
+        <div class="link-left">
+          <span class="menu-icon-badge icon-blue">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><polyline points="9 15 11 17 15 13"></polyline></svg>
+          </span>
+          <span>Claims</span>
+        </div>
+      </a>
+
+      <a href="#kavvach" class="mobile-overlay-link trigger-contact-modal">
+        <div class="link-left">
+          <span class="menu-icon-badge icon-purple">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          </span>
+          <span>Kavvach</span>
+        </div>
+      </a>
+
+      <a href="#renewal" class="mobile-overlay-link trigger-contact-modal">
+        <div class="link-left">
+          <span class="menu-icon-badge icon-rose">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+          </span>
+          <span>Renewal</span>
+        </div>
+      </a>
+
+      <a href="#login" class="mobile-overlay-link trigger-contact-modal">
+        <div class="link-left">
+          <span class="menu-icon-badge icon-indigo">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
+          </span>
+          <span>Login</span>
+        </div>
+      </a>
+
+      <div class="mobile-overlay-actions">
+        <a href="#policy-status" class="mobile-overlay-link trigger-contact-modal">
+          <div class="link-left">
+            <span class="menu-icon-badge icon-amber">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"></rect><line x1="7" y1="8" x2="17" y2="8"></line><line x1="7" y1="12" x2="13" y2="12"></line></svg>
+            </span>
+            <span>Policy Status</span>
+          </div>
+        </a>
+
+        <a href="#talk-expert" class="mobile-overlay-link trigger-contact-modal">
+          <div class="link-left">
+            <span class="menu-icon-badge icon-gold">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            </span>
+            <span>Talk to Expert</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="presentation-container">
+    
+    <!-- MAIN SITE WRAPPER (Rounded Canvas Card) -->
+    <main class="site-wrapper">
+
+      <!-- ==========================================================================
+           1. HERO SECTION
+           ========================================================================== -->
+      <section class="hero-card" id="home">
+        <!-- Creative Glass Orbs & Radiant Ambient Accents -->
+        <div class="hero-glass-orb orb-top"></div>
+        <div class="hero-glass-orb orb-right"></div>
+        <div class="hero-glass-orb orb-center"></div>
+
+        <div class="hero-content-wrapper">
+
+          <!-- FLOATING NAVBAR WITH PRODUCTS DROPDOWN -->
+          <nav class="navbar" aria-label="Main Navigation">
+            <a href="#" class="brand-logo">
+              <span class="logo-icon">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 16c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/>
+                  <circle cx="12" cy="12" r="2.5"/>
+                </svg>
+              </span>
+              Beema
+            </a>
+
+            <div class="nav-pill-menu">
+              <!-- Products Dropdown Item -->
+              <div class="nav-dropdown-item">
+                <a href="#" class="nav-link dropdown-trigger">
+                  Products 
+                  <svg class="chevron-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </a>
+
+                <!-- Mega Glass Dropdown Menu -->
+                <div class="dropdown-menu-card">
+                  <!-- Category 1: Life Insurance -->
+                  <div class="dropdown-sub-group">
+                    <div class="sub-group-title">
+                      <span>Life Insurance</span>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+                    <div class="sub-group-links">
+                      <a href="#child-plan" class="trigger-contact-modal">Child Plan</a>
+                      <a href="#wealth-plan" class="trigger-contact-modal">Wealth Plan</a>
+                      <a href="#whole-life" class="trigger-contact-modal">Whole Life Plan</a>
+                      <a href="#joint-life" class="trigger-contact-modal">Joint Life Plan</a>
+                      <a href="#guaranteed-plan" class="trigger-contact-modal">Guaranteed Plan</a>
+                      <a href="#money-back" class="trigger-contact-modal">Money Back Plan</a>
+                      <a href="#pension-plan" class="trigger-contact-modal">Pension Plan</a>
+                      <a href="#retirement-plan" class="trigger-contact-modal">Retirement Plan</a>
+                    </div>
+                  </div>
+
+                  <!-- Category 2: Health Insurance -->
+                  <div class="dropdown-sub-group">
+                    <div class="sub-group-title">
+                      <span>Health Insurance</span>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+                    <div class="sub-group-links">
+                      <a href="#individual-plan" class="trigger-contact-modal">Individual Plan</a>
+                      <a href="#family-health" class="trigger-contact-modal">Family Health Plan</a>
+                      <a href="#top-up" class="trigger-contact-modal">Top-UP Plan</a>
+                      <a href="#group-health" class="trigger-contact-modal">Group Health Plan</a>
+                    </div>
+                  </div>
+
+                  <!-- Category 3: General Insurance -->
+                  <div class="dropdown-sub-group">
+                    <div class="sub-group-title">
+                      <span>General Insurance</span>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+                    <div class="sub-group-links">
+                      <a href="#motor-insurance" class="trigger-contact-modal">Motor Insurance</a>
+                      <a href="#travel-insurance" class="trigger-contact-modal">Travel Insurance</a>
+                      <a href="#fire-insurance" class="trigger-contact-modal">Fire Insurance</a>
+                      <a href="#accidental-insurance" class="trigger-contact-modal">Accidental Insurance</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <a href="#saathi" class="nav-link trigger-contact-modal">SAATHI (POS)</a>
+              <a href="#claims" class="nav-link trigger-contact-modal">Claims</a>
+              <a href="#kavvach" class="nav-link trigger-contact-modal">Kavvach</a>
+              <a href="#renewal" class="nav-link trigger-contact-modal">Renewal</a>
+              <a href="#login" class="nav-link nav-login-link trigger-contact-modal">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="login-nav-icon">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span>Login</span>
+              </a>
+
+              <div class="nav-actions-group">
+                <a href="#policy-status" class="nav-cta-btn trigger-contact-modal">
+                  <span class="icon-pulse-wrapper">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="cta-btn-icon icon-policy-animated">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                      <polyline points="14 2 14 8 20 8"></polyline>
+                      <polyline points="9 15 11 17 15 13"></polyline>
+                    </svg>
+                  </span>
+                  <span>Policy Status</span>
+                </a>
+                <a href="#talk-expert" class="nav-cta-btn nav-cta-expert trigger-contact-modal">
+                  <img src="assets/icon/Phone icon animation.svg" alt="Talk to Expert" class="cta-svg-img">
+                  <span>Talk to Expert</span>
+                </a>
+              </div>
+            </div>
+
+            <button class="mobile-menu-btn" aria-label="Toggle Menu">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+              </svg>
+            </button>
+          </nav>
+
+          <!-- HERO SUBTITLE TEXT -->
+          <p class="hero-pitch-text">
+            Formerly known as Spekctrum Insurance
+          </p>
+
+
+
+          <!-- HERO BOTTOM HEADLINE & ACTION -->
+          <div class="hero-bottom-headline">
+            <h1 class="hero-main-title">
+              Let's plan your<br>
+              insurance online
+            </h1>
+            <a href="#contactModal" class="hero-book-visit-btn trigger-contact-modal">
+              BOOK HOME VISIT
+            </a>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ==========================================================================
+           INSURANCE SERVICES GRID SECTION (JUST BELOW HERO CARD)
+           ========================================================================== -->
+      <section class="insurance-services-section">
+        <div class="services-grid-container">
+          
+          <!-- Card 1: Term Life Insurance -->
+          <div class="service-card-item trigger-contact-modal">
+            <div class="service-card-box">
+              <div class="service-tag-badge tag-green">Upto 15% Discount</div>
+              <svg class="service-icon-svg" viewBox="0 0 64 64" fill="none">
+                <path d="M32 6L10 16v18c0 14.5 9.4 28 22 32 12.6-4 22-17.5 22-32V16L32 6z" fill="url(#gradPurple)"/>
+                <path d="M26 32l5 5 9-11" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                <defs>
+                  <linearGradient id="gradPurple" x1="10" y1="6" x2="54" y2="60" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#a855f7"/>
+                    <stop offset="1" stop-color="#6b21a8"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <h4 class="service-card-title">Term Life Insurance</h4>
+          </div>
+
+          <!-- Card 2: Health Insurance -->
+          <div class="service-card-item trigger-contact-modal">
+            <div class="service-card-box">
+              <div class="service-tag-badge tag-green">Lowest Price Guarantee</div>
+              <svg class="service-icon-svg" viewBox="0 0 64 64" fill="none">
+                <path d="M32 54C32 54 10 38 10 22C10 14 16 8 24 8C28.5 8 32 11 32 11C32 11 35.5 8 40 8C48 8 54 14 54 22C54 38 32 54 32 54Z" fill="url(#gradHeart)"/>
+                <path d="M18 24h8l3-6 4 12 4-8 3 2h6" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <defs>
+                  <linearGradient id="gradHeart" x1="10" y1="8" x2="54" y2="54" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#ef4444"/>
+                    <stop offset="1" stop-color="#991b1b"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <h4 class="service-card-title">Health Insurance</h4>
+          </div>
+
+          <!-- Card 3: Investment Plans -->
+          <div class="service-card-item trigger-contact-modal">
+            <div class="service-card-box">
+              <div class="service-tag-badge tag-green">In-Built Life Cover</div>
+              <svg class="service-icon-svg" viewBox="0 0 64 64" fill="none">
+                <ellipse cx="26" cy="46" rx="12" ry="6" fill="#eab308"/>
+                <ellipse cx="26" cy="38" rx="12" ry="6" fill="#facc15"/>
+                <ellipse cx="26" cy="30" rx="12" ry="6" fill="#fde047"/>
+                <path d="M36 40l14-16m0 0h-8m8 0v8" stroke="#22c55e" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h4 class="service-card-title">Investment Plans</h4>
+          </div>
+
+          <!-- Card 4: Car Insurance -->
+          <div class="service-card-item trigger-contact-modal">
+            <div class="service-card-box">
+              <div class="service-tag-badge tag-green">Lowest Price Guarantee</div>
+              <svg class="service-icon-svg" viewBox="0 0 64 64" fill="none">
+                <path d="M12 36l6-14c1.5-3.5 5-6 9-6h14c4 0 7.5 2.5 9 6l6 14v12h-6v4h-6v-4H22v4h-6v-4h-4V36z" fill="url(#gradCar)"/>
+                <circle cx="20" cy="40" r="4" fill="#ffffff"/>
+                <circle cx="44" cy="40" r="4" fill="#ffffff"/>
+                <defs>
+                  <linearGradient id="gradCar" x1="10" y1="16" x2="54" y2="48" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#64748b"/>
+                    <stop offset="1" stop-color="#1e293b"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <h4 class="service-card-title">Car Insurance</h4>
+          </div>
+
+          <!-- Card 5: 2 Wheeler Insurance -->
+          <div class="service-card-item trigger-contact-modal">
+            <div class="service-card-box">
+              <div class="service-tag-badge tag-green">Upto 85% Discount</div>
+              <svg class="service-icon-svg" viewBox="0 0 64 64" fill="none">
+                <circle cx="18" cy="44" r="8" stroke="#16a34a" stroke-width="4"/>
+                <circle cx="46" cy="44" r="8" stroke="#16a34a" stroke-width="4"/>
+                <path d="M18 44h10l8-18h10M32 26l-6-8h-6" stroke="#22c55e" stroke-width="4" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h4 class="service-card-title">2 Wheeler Insurance</h4>
+          </div>
+
+          <!-- Card 6: Family Health Insurance -->
+          <div class="service-card-item trigger-contact-modal">
+            <div class="service-card-box">
+              <div class="service-tag-badge tag-green">Upto 25% Discount</div>
+              <svg class="service-icon-svg" viewBox="0 0 64 64" fill="none">
+                <circle cx="24" cy="22" r="6" fill="#3b82f6"/>
+                <path d="M14 42c0-5.5 4.5-10 10-10s10 4.5 10 10" stroke="#3b82f6" stroke-width="4"/>
+                <circle cx="40" cy="24" r="5" fill="#ec4899"/>
+                <path d="M32 42c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke="#ec4899" stroke-width="4"/>
+              </svg>
+            </div>
+            <h4 class="service-card-title">Family Health Insurance</h4>
+          </div>
+
+          <!-- Card 7: Travel Insurance -->
+          <div class="service-card-item trigger-contact-modal">
+            <div class="service-card-box">
+              <svg class="service-icon-svg" viewBox="0 0 64 64" fill="none">
+                <path d="M10 32l44-18-18 44-6-16-16-6z" fill="url(#gradPlane)"/>
+                <defs>
+                  <linearGradient id="gradPlane" x1="10" y1="14" x2="54" y2="58" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#38b6ff"/>
+                    <stop offset="1" stop-color="#1d4ed8"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <h4 class="service-card-title">Travel Insurance</h4>
+          </div>
+
+          <!-- Card 8: Term Insurance (Women) -->
+          <div class="service-card-item trigger-contact-modal">
+            <div class="service-card-box">
+              <div class="service-tag-badge tag-green">Upto 20% Cheaper</div>
+              <svg class="service-icon-svg" viewBox="0 0 64 64" fill="none">
+                <circle cx="32" cy="20" r="7" fill="#ec4899"/>
+                <path d="M32 27l18 10-8 23H22l-8-23 18-10z" fill="#f43f5e"/>
+                <path d="M14 37l18-10 18 10" stroke="#fb7185" stroke-width="3"/>
+              </svg>
+            </div>
+            <h4 class="service-card-title">Term Insurance (Women)</h4>
+          </div>
+
+          <!-- Card 9: Guaranteed Return Plans -->
+          <div class="service-card-item trigger-contact-modal">
+            <div class="service-card-box">
+              <div class="service-tag-badge tag-green">Upto 7.4% Returns</div>
+              <svg class="service-icon-svg" viewBox="0 0 64 64" fill="none">
+                <rect x="18" y="24" width="28" height="28" rx="6" fill="#eab308"/>
+                <path d="M32 12l4 8 8 2-6 6 2 8-8-4-8 4 2-8-6-6 8-2 4-8z" fill="#3b82f6"/>
+              </svg>
+            </div>
+            <h4 class="service-card-title">Guaranteed Return Plans</h4>
+          </div>
+
+          <!-- Card 10: Child Savings Plans -->
+          <div class="service-card-item trigger-contact-modal">
+            <div class="service-card-box">
+              <div class="service-tag-badge tag-red">Premium Waiver</div>
+              <svg class="service-icon-svg" viewBox="0 0 64 64" fill="none">
+                <ellipse cx="36" cy="38" rx="14" ry="10" fill="#f43f5e"/>
+                <circle cx="26" cy="34" r="2" fill="#ffffff"/>
+                <circle cx="36" cy="20" r="4" fill="#eab308"/>
+              </svg>
+            </div>
+            <h4 class="service-card-title">Child Savings Plans</h4>
+          </div>
+
+          <!-- Card 11: Retirement Plans -->
+          <div class="service-card-item trigger-contact-modal">
+            <div class="service-card-box">
+              <svg class="service-icon-svg" viewBox="0 0 64 64" fill="none">
+                <circle cx="24" cy="22" r="6" fill="#8b5cf6"/>
+                <path d="M14 44c0-5 4-9 10-9s10 4 10 9" stroke="#8b5cf6" stroke-width="4"/>
+                <circle cx="40" cy="24" r="6" fill="#06b6d4"/>
+                <path d="M30 44c0-5 4-9 10-9s10 4 10 9" stroke="#06b6d4" stroke-width="4"/>
+              </svg>
+            </div>
+            <h4 class="service-card-title">Retirement Plans</h4>
+          </div>
+
+          <!-- Card 12: Home Insurance -->
+          <div class="service-card-item trigger-contact-modal">
+            <div class="service-card-box">
+              <div class="service-tag-badge tag-green">Upto 25% Discount</div>
+              <svg class="service-icon-svg" viewBox="0 0 64 64" fill="none">
+                <polygon points="32 12 10 28 14 28 14 50 50 50 50 28 54 28" fill="url(#gradHouse)"/>
+                <rect x="26" y="34" width="12" height="16" fill="#ffffff"/>
+                <defs>
+                  <linearGradient id="gradHouse" x1="10" y1="12" x2="54" y2="50" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#6366f1"/>
+                    <stop offset="1" stop-color="#4338ca"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <h4 class="service-card-title">Home Insurance</h4>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================================================
+           HERE'S WHY YOU CAN TRUST US — GSAP HORIZONTAL SCROLL SECTION
+           ========================================================================== -->
+      <section class="trust-scroll-section" id="trust-milestones">
+        <!-- Section Header Bar (Sticky Top Inside Section) -->
+        <div class="trust-header-bar">
+          <div class="trust-title-group">
+            <div class="trust-badge">
+              <span class="trust-badge-dot"></span>
+              <span>WHY CHOOSE US</span>
+            </div>
+            <h2 class="trust-main-heading">Here's Why You Can Trust Us</h2>
+            <p class="trust-sub-heading">Empowering financial security and protection across India with unmatched dedication, transparency, and speed.</p>
+          </div>
+
+          <!-- Interactive Step Indicator & Navigation Controls -->
+          <div class="trust-controls-group">
+            <div class="trust-step-indicator">
+              <span class="trust-step-current" id="trustCurrentStep">01</span>
+              <span class="trust-step-sep">/</span>
+              <span class="trust-step-total">05</span>
+            </div>
+            <div class="trust-progress-track">
+              <div class="trust-progress-fill" id="trustProgressFill"></div>
+            </div>
+            <div class="trust-nav-btns">
+              <button class="trust-nav-btn prev" id="trustPrevBtn" aria-label="Previous Milestone">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              </button>
+              <button class="trust-nav-btn next" id="trustNextBtn" aria-label="Next Milestone">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Horizontal Pin Stage -->
+        <div class="trust-pin-container" id="trustPinContainer">
+          <div class="trust-viewport" id="trustViewport">
+            
+            <!-- Layer 1: Background Connecting Flow Line (Behind text, z-index: 1) -->
+            <div class="trust-svg-canvas-wrapper" aria-hidden="true">
+              <svg class="trust-svg-line" id="trustSvgLine" viewBox="0 0 5000 240" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="trustConnectGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#1c1c1c" />
+                    <stop offset="25%" stop-color="#afa40e" />
+                    <stop offset="50%" stop-color="#d4af37" />
+                    <stop offset="75%" stop-color="#afa40e" />
+                    <stop offset="100%" stop-color="#1c1c1c" />
+                  </linearGradient>
+                  
+                  <filter id="trustLineGlow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur stdDeviation="5" result="blur" />
+                    <feMerge>
+                      <feMergeNode in="blur" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+                </defs>
+
+                <!-- Subtle Background Guide Path connecting Node 1 to 5 -->
+                <path class="trust-path-bg" d="M 500 70 C 900 20, 1100 130, 1500 70 C 1900 20, 2100 130, 2500 70 C 2900 20, 3100 130, 3500 70 C 3900 20, 4100 130, 4500 70" />
+                
+                <!-- Dynamic Active Drawing Path (Progressively revealed as you scroll from point to point) -->
+                <path class="trust-path-active" id="trustActivePath" d="M 500 70 C 900 20, 1100 130, 1500 70 C 1900 20, 2100 130, 2500 70 C 2900 20, 3100 130, 3500 70 C 3900 20, 4100 130, 4500 70" stroke="url(#trustConnectGrad)" filter="url(#trustLineGlow)" />
+              </svg>
+            </div>
+
+            <!-- Layer 2: Horizontal Spatial Milestones Track (Strictly Card-Free, z-index: 10) -->
+            <div class="trust-track" id="trustTrack">
+              
+              <!-- Landmark 01: Institutional Fiduciary Lineage -->
+              <div class="trust-card-item active" data-index="0">
+                <div class="trust-spatial-node-unit">
+                  <!-- Floating Telemetry Status Badge -->
+                  <div class="spatial-telemetry-badge">
+                    <span class="telemetry-live-dot gold"></span>
+                    <span class="telemetry-badge-text">IRDAI REGISTERED BROKER // FIDUCIARY</span>
+                  </div>
+
+                  <!-- Milestone Node with Glowing Pulse Ring -->
+                  <div class="trust-milestone-node">
+                    <span class="node-pulse-ring"></span>
+                    <span class="node-dot">01</span>
+                  </div>
+
+                  <!-- Big Spatial Typography Core -->
+                  <div class="trust-big-text-wrap">
+                    <span class="trust-point-eyebrow">INSTITUTIONAL LINEAGE</span>
+                    <h3 class="trust-point-big-headline">
+                      Proudly Part of <span class="spatial-brand-gold">Spekctrum.com</span>
+                    </h3>
+                    <p class="trust-point-subtext">
+                      Direct customer representation &amp; 100% fiduciary protection. We strictly represent the customer, never the insurer.
+                    </p>
+                  </div>
+
+                  <!-- Floating Micro-Proof Highlights -->
+                  <div class="spatial-micro-proofs">
+                    <span class="micro-proof-chip">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#b49020" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span>100% Fiduciary Protection</span>
+                    </span>
+                    <span class="micro-proof-chip">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#b49020" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span>40+ Public &amp; Private Insurers</span>
+                    </span>
+                    <span class="micro-proof-chip">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#b49020" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span>Dedicated Claims Advocate</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Landmark 02: Cumulative Premium Managed -->
+              <div class="trust-card-item" data-index="1">
+                <div class="trust-spatial-node-unit">
+                  <div class="spatial-telemetry-badge">
+                    <span class="telemetry-live-dot green"></span>
+                    <span class="telemetry-badge-text">+38% YoY INFLOW // CAPITAL TRUST</span>
+                  </div>
+
+                  <div class="trust-milestone-node">
+                    <span class="node-pulse-ring"></span>
+                    <span class="node-dot">02</span>
+                  </div>
+
+                  <div class="trust-big-text-wrap">
+                    <span class="trust-point-eyebrow">CUMULATIVE CAPITAL MANAGED</span>
+                    <h3 class="trust-point-big-headline">
+                      ₹<span class="stat-counter" data-count="266">266</span> <span class="spatial-gold-unit">Cr+</span>
+                    </h3>
+                    <p class="trust-point-subtext">
+                      Total insurance premium placed through transparent escrow and trusted institutional channels nationwide.
+                    </p>
+                  </div>
+
+                  <div class="spatial-micro-proofs">
+                    <span class="micro-proof-chip">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span>Verified Inflow Growth</span>
+                    </span>
+                    <span class="micro-proof-chip">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span>100% Transparent Execution</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Landmark 03: Active Protection Pool -->
+              <div class="trust-card-item" data-index="2">
+                <div class="trust-spatial-node-unit">
+                  <div class="spatial-telemetry-badge">
+                    <span class="telemetry-live-dot gold"></span>
+                    <span class="telemetry-badge-text">LIVE SUM ASSURED POOL</span>
+                  </div>
+
+                  <div class="trust-milestone-node">
+                    <span class="node-pulse-ring"></span>
+                    <span class="node-dot">03</span>
+                  </div>
+
+                  <div class="trust-big-text-wrap">
+                    <span class="trust-point-eyebrow">ACTIVE PROTECTION POOL</span>
+                    <h3 class="trust-point-big-headline">
+                      ₹<span class="stat-counter" data-count="806">806</span> <span class="spatial-gold-unit">Cr+</span>
+                    </h3>
+                    <p class="trust-point-subtext">
+                      Comprehensive sum assured protecting policyholder families against life uncertainties and health emergencies.
+                    </p>
+                  </div>
+
+                  <div class="spatial-micro-proofs">
+                    <span class="micro-proof-chip">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#b49020" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span>Guaranteed Safety Net</span>
+                    </span>
+                    <span class="micro-proof-chip">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#b49020" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span>Critical Illness Backing</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Landmark 04: Pan-India Geographic Reach -->
+              <div class="trust-card-item" data-index="3">
+                <div class="trust-spatial-node-unit">
+                  <div class="spatial-telemetry-badge">
+                    <span class="telemetry-live-dot red"></span>
+                    <span class="telemetry-badge-text">ALL 28 STATES &amp; 8 UTs</span>
+                  </div>
+
+                  <div class="trust-milestone-node">
+                    <span class="node-pulse-ring"></span>
+                    <span class="node-dot">04</span>
+                  </div>
+
+                  <div class="trust-big-text-wrap">
+                    <span class="trust-point-eyebrow">PAN-INDIA GEOGRAPHIC REACH</span>
+                    <h3 class="trust-point-big-headline">
+                      <span class="stat-counter" data-count="9555">9,555</span><span class="spatial-gold-unit">+</span>
+                    </h3>
+                    <p class="trust-point-subtext">
+                      Pincodes actively served with instant under-2-minute digital issuance and doorstep service assistance.
+                    </p>
+                  </div>
+
+                  <div class="spatial-micro-proofs">
+                    <span class="micro-proof-chip">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#e11d48" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span>Nationwide Delivery</span>
+                    </span>
+                    <span class="micro-proof-chip">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#e11d48" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span>Tier-1 to Tier-3 Coverage</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Landmark 05: Satisfied Families Protected -->
+              <div class="trust-card-item" data-index="4">
+                <div class="trust-spatial-node-unit">
+                  <div class="spatial-telemetry-badge">
+                    <span class="telemetry-live-dot green"></span>
+                    <span class="telemetry-badge-text">99.2% SETTLEMENT RATIO RECORD</span>
+                  </div>
+
+                  <div class="trust-milestone-node">
+                    <span class="node-pulse-ring"></span>
+                    <span class="node-dot">05</span>
+                  </div>
+
+                  <div class="trust-big-text-wrap">
+                    <span class="trust-point-eyebrow">VERIFIED POLICYHOLDERS</span>
+                    <h3 class="trust-point-big-headline">
+                      <span class="stat-counter" data-count="26699">26,699</span><span class="spatial-gold-unit">+</span>
+                    </h3>
+                    <p class="trust-point-subtext">
+                      Happy families protected across India with 4.9/5 star satisfaction rating and 24/7 dedicated claim support.
+                    </p>
+                  </div>
+
+                  <div class="spatial-micro-proofs">
+                    <span class="micro-proof-chip">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span>4.9/5 TrustScore Rating</span>
+                    </span>
+                    <span class="micro-proof-chip">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span>Zero-Delay Claim Desk</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Layer 3: ONLY Plane.svg on the Topmost Foreground Layer (z-index: 99999) -->
+            <div class="trust-plane-canvas-wrapper" aria-hidden="true">
+              <svg class="trust-plane-svg" viewBox="0 0 5000 240" preserveAspectRatio="none">
+                <g class="trust-plane-leader-group" id="trustPlaneLeader" transform="translate(500, 70)">
+                  <image href="assets/Plane.svg" width="180" height="180" x="-90" y="-90" preserveAspectRatio="xMidYMid meet" />
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================================================
+           GSAP OUTSTANDING CINEMATIC PROMO BANNER SECTION (HERO CARD COLOR THEME)
+           ========================================================================== -->
+      <section class="banner-slider-section" id="gsapPromoBanner">
+        <div class="gsap-banner-stage">
+          <!-- Ambient Glass Orbs (Matching Hero Card Orbs) -->
+          <div class="gsap-glass-orb orb-1"></div>
+          <div class="gsap-glass-orb orb-2"></div>
+
+          <!-- Animated Ambient Backdrop Glow -->
+          <div class="gsap-stage-backdrop" id="gsapStageBackdrop"></div>
+          <div class="gsap-stage-grid-overlay"></div>
+
+          <!-- Top Progress Indicator Line -->
+          <div class="gsap-progress-track">
+            <div class="gsap-progress-fill" id="gsapProgressFill"></div>
+          </div>
+
+          <!-- Banner Main Content Container -->
+          <div class="gsap-banner-container">
+            
+            <!-- Slide 1: Health Shield (from banner1.jpg) -->
+            <div class="gsap-slide active" data-index="0" data-gradient="radial-gradient(circle at 75% 20%, #e0f2fe 0%, #bae6fd 50%, #c1cbec 100%)">
+              <div class="gsap-slide-grid">
+                <div class="gsap-slide-left">
+                  <div class="gsap-badge-wrap blue">
+                    <span class="gsap-live-dot"></span>
+                    <span class="gsap-badge-text">LIVE OFFER // HEALTH COVER</span>
+                  </div>
+                  <h2 class="gsap-title">Secure Peace of Mind Today</h2>
+                  <p class="gsap-description">Comprehensive health shield with 100% cashless hospitalization across 10,000+ top network hospitals in India.</p>
+                  <div class="gsap-features-row">
+                    <div class="gsap-chip">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0ea5e9" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span>10,000+ Cashless Hospitals</span>
+                    </div>
+                    <div class="gsap-chip">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0ea5e9" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span>Instant Policy In 2 Mins</span>
+                    </div>
+                    <div class="gsap-chip">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0ea5e9" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span>24/7 Priority Claim Desk</span>
+                    </div>
+                  </div>
+                  <div class="gsap-action-row">
+                    <a href="#contact" class="gsap-primary-cta blue trigger-contact-modal">
+                      <span>Claim Health Shield</span>
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </a>
+                  </div>
+                </div>
+                <div class="gsap-slide-right">
+                  <div class="gsap-stat-card blue">
+                    <div class="gsap-stat-glow"></div>
+                    <span class="gsap-stat-label">Price Starts At</span>
+                    <div class="gsap-stat-value">₹21<small>/DAY*</small></div>
+                    <span class="gsap-stat-sub">Pure health protection • Zero hidden fees</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 2: Term Life Cover (from banner2.jpg) -->
+            <div class="gsap-slide" data-index="1" data-gradient="radial-gradient(circle at 75% 20%, #fff4e5 0%, #ffedd5 50%, #c1cbec 100%)">
+              <div class="gsap-slide-grid">
+                <div class="gsap-slide-left">
+                  <div class="gsap-badge-wrap gold">
+                    <span class="gsap-live-dot"></span>
+                    <span class="gsap-badge-text">TOP GUARANTEE // LIFE COVER</span>
+                  </div>
+                  <h2 class="gsap-title">₹1 Crore Cover &amp; Zero Cost</h2>
+                  <p class="gsap-description">Protect your family's future with ₹1 Cr financial safety net and 100% full return of premium option.</p>
+                  <div class="gsap-features-row">
+                    <div class="gsap-chip">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span>₹1 Crore Guaranteed Shield</span>
+                    </div>
+                    <div class="gsap-chip">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span>100% Return of Premium</span>
+                    </div>
+                    <div class="gsap-chip">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span>Max Sec 80C Tax Savings</span>
+                    </div>
+                  </div>
+                  <div class="gsap-action-row">
+                    <a href="#contact" class="gsap-primary-cta gold trigger-contact-modal">
+                      <span>Calculate Premium</span>
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </a>
+                  </div>
+                </div>
+                <div class="gsap-slide-right">
+                  <div class="gsap-stat-card gold">
+                    <div class="gsap-stat-glow"></div>
+                    <span class="gsap-stat-label">Price Starts At</span>
+                    <div class="gsap-stat-value">₹702<small>/MONTH*</small></div>
+                    <span class="gsap-stat-sub">100% Return of Premium option available</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 3: Motor Insurance (from banner3.jpg) -->
+            <div class="gsap-slide" data-index="2" data-gradient="radial-gradient(circle at 75% 20%, #ffe4e6 0%, #fecdd3 50%, #c1cbec 100%)">
+              <div class="gsap-slide-grid">
+                <div class="gsap-slide-left">
+                  <div class="gsap-badge-wrap red">
+                    <span class="gsap-live-dot"></span>
+                    <span class="gsap-badge-text">INSANE DEALS // MOTOR COVER</span>
+                  </div>
+                  <h2 class="gsap-title">Ride Safely. Pay Way Less.</h2>
+                  <p class="gsap-description">Insane deals on motor insurance for bikes and cars with zero-depreciation coverage and 24/7 roadside assistance.</p>
+                  <div class="gsap-features-row">
+                    <div class="gsap-chip">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#e11d48" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span>Up to 85% Off Premiums</span>
+                    </div>
+                    <div class="gsap-chip">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#e11d48" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span>24/7 Roadside Assistance</span>
+                    </div>
+                    <div class="gsap-chip">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#e11d48" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span>Instant Cashless Repairs</span>
+                    </div>
+                  </div>
+                  <div class="gsap-action-row">
+                    <a href="#contact" class="gsap-primary-cta red trigger-contact-modal">
+                      <span>Insure Vehicle Now</span>
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </a>
+                  </div>
+                </div>
+                <div class="gsap-slide-right">
+                  <div class="gsap-stat-card red">
+                    <div class="gsap-stat-glow"></div>
+                    <span class="gsap-stat-label">Special Deal</span>
+                    <div class="gsap-stat-value">85%<small>OFF*</small></div>
+                    <span class="gsap-stat-sub">Limited time offer • Instant digital policy</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 4: Mera Term Plan Plus (from banner4.jpg) -->
+            <div class="gsap-slide" data-index="3" data-gradient="radial-gradient(circle at 75% 20%, #f3e8ff 0%, #e9d5ff 50%, #c1cbec 100%)">
+              <div class="gsap-slide-grid">
+                <div class="gsap-slide-left">
+                  <div class="gsap-badge-wrap purple">
+                    <span class="gsap-live-dot"></span>
+                    <span class="gsap-badge-text">ALL-IN-ONE // FAMILY PROTECTION</span>
+                  </div>
+                  <h2 class="gsap-title">Mera Term Plan Plus</h2>
+                  <p class="gsap-description">Complete family peace of mind with Covid-19 claims, critical illness cover, and maximum tax savings under Sec 80C &amp; 80D.</p>
+                  <div class="gsap-features-row">
+                    <div class="gsap-chip">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span>Full Return of Premiums</span>
+                    </div>
+                    <div class="gsap-chip">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span>Covid &amp; Illness Shield</span>
+                    </div>
+                    <div class="gsap-chip">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span>Tax Benefits Sec 80C &amp; 80D</span>
+                    </div>
+                  </div>
+                  <div class="gsap-action-row">
+                    <a href="#contact" class="gsap-primary-cta purple trigger-contact-modal">
+                      <span>Lock Offer Today</span>
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </a>
+                  </div>
+                </div>
+                <div class="gsap-slide-right">
+                  <div class="gsap-stat-card purple">
+                    <div class="gsap-stat-glow"></div>
+                    <span class="gsap-stat-label">Special Offer</span>
+                    <div class="gsap-stat-value">TAX<small>SAVER*</small></div>
+                    <span class="gsap-stat-sub">Comprehensive family coverage &amp; tax benefits</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom Control Bar (Tab Selectors & Arrows) -->
+          <div class="gsap-nav-bar">
+            <div class="gsap-nav-tabs">
+              <button class="gsap-nav-tab active" data-index="0">
+                <span class="tab-num">01</span>
+                <span class="tab-title">Health Shield</span>
+              </button>
+              <button class="gsap-nav-tab" data-index="1">
+                <span class="tab-num">02</span>
+                <span class="tab-title">Term Life</span>
+              </button>
+              <button class="gsap-nav-tab" data-index="2">
+                <span class="tab-num">03</span>
+                <span class="tab-title">Motor Shield</span>
+              </button>
+              <button class="gsap-nav-tab" data-index="3">
+                <span class="tab-num">04</span>
+                <span class="tab-title">Mera Plan</span>
+              </button>
+            </div>
+
+            <div class="gsap-nav-arrows">
+              <button class="gsap-arrow gsap-prev-btn" aria-label="Previous Slide">‹</button>
+              <button class="gsap-arrow gsap-next-btn" aria-label="Next Slide">›</button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ==========================================================================
+           FEATURED SOLUTION — 3D CIRCULAR ROTATING ORBIT (GSAP SCROLLTRIGGER PIN)
+           ========================================================================== -->
+      <section class="featured-orbit-section" id="featured-solutions">
+        <div class="orbit-inner-wrapper">
+          <!-- Header Bar -->
+          <div class="orbit-header-bar">
+            <div class="orbit-title-group">
+              <div class="orbit-badge">
+                <span class="orbit-badge-dot"></span>
+                <span>FEATURED SOLUTION</span>
+              </div>
+              <h2 class="orbit-main-heading">Explore Our Solutions in Motion</h2>
+            </div>
+          </div>
+
+          <!-- 3D Orbit Stage Canvas -->
+          <div class="orbit-stage-container" id="orbitStageContainer">
+            <!-- Ambient Orbit Glow & Right-Side Visible Arc Guide (Left edge at 0, Right apex at Center 720) -->
+            <div class="orbit-ambient-glow"></div>
+            <svg class="orbit-guide-ellipse-svg" viewBox="0 0 1440 640" preserveAspectRatio="none" aria-hidden="true">
+              <defs>
+                <linearGradient id="orbitArcGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#1c1c1c" stop-opacity="0.15" />
+                  <stop offset="25%" stop-color="#afa40e" stop-opacity="0.6" />
+                  <stop offset="50%" stop-color="#d4af37" stop-opacity="0.9" />
+                  <stop offset="75%" stop-color="#afa40e" stop-opacity="0.6" />
+                  <stop offset="100%" stop-color="#1c1c1c" stop-opacity="0.15" />
+                </linearGradient>
+              </defs>
+              <!-- Arc starting from left edge (x = 0) with right apex reaching center of website (x = 720) -->
+              <path d="M 0 50 C 480 50, 720 170, 720 320 C 720 470, 480 590, 0 590" fill="none" stroke="url(#orbitArcGrad)" stroke-width="3" stroke-dasharray="10 10" class="orbit-guide-ellipse-track" />
+            </svg>
+
+            <!-- 8 Circular Rotating Cards (Pure Image Cards) -->
+            <div class="orbit-cards-system" id="orbitCardsSystem">
+              <!-- Card 1 -->
+              <div class="orbit-card-item trigger-contact-modal" data-index="0">
+                <div class="orbit-card-inner">
+                  <img src="assets/images/sb1.jpg" alt="Term Life Insurance Solutions">
+                  <div class="orbit-card-shine"></div>
+                </div>
+              </div>
+              <!-- Card 2 -->
+              <div class="orbit-card-item trigger-contact-modal" data-index="1">
+                <div class="orbit-card-inner">
+                  <img src="assets/images/sb2.jpg" alt="Guarantee Return Plans">
+                  <div class="orbit-card-shine"></div>
+                </div>
+              </div>
+              <!-- Card 3 -->
+              <div class="orbit-card-item trigger-contact-modal" data-index="2">
+                <div class="orbit-card-inner">
+                  <img src="assets/images/sb3.jpg" alt="Car Insurance Protection">
+                  <div class="orbit-card-shine"></div>
+                </div>
+              </div>
+              <!-- Card 4 -->
+              <div class="orbit-card-item trigger-contact-modal" data-index="3">
+                <div class="orbit-card-inner">
+                  <img src="assets/images/sb4.jpg" alt="Term Life Family Protection">
+                  <div class="orbit-card-shine"></div>
+                </div>
+              </div>
+              <!-- Card 5 -->
+              <div class="orbit-card-item trigger-contact-modal" data-index="4">
+                <div class="orbit-card-inner">
+                  <img src="assets/images/sb5.jpg" alt="Comprehensive Health Insurance">
+                  <div class="orbit-card-shine"></div>
+                </div>
+              </div>
+              <!-- Card 6 -->
+              <div class="orbit-card-item trigger-contact-modal" data-index="5">
+                <div class="orbit-card-inner">
+                  <img src="assets/images/sb6.jpg" alt="Guaranteed Savings & Return">
+                  <div class="orbit-card-shine"></div>
+                </div>
+              </div>
+              <!-- Card 7 -->
+              <div class="orbit-card-item trigger-contact-modal" data-index="6">
+                <div class="orbit-card-inner">
+                  <img src="assets/images/sb7.jpg" alt="Secure Family Future">
+                  <div class="orbit-card-shine"></div>
+                </div>
+              </div>
+              <!-- Card 8 -->
+              <div class="orbit-card-item trigger-contact-modal" data-index="7">
+                <div class="orbit-card-inner">
+                  <img src="assets/images/sb8.jpg" alt="Return of Premium Assurance">
+                  <div class="orbit-card-shine"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================================================
+           WHY BEEMAAA.COM - CREATIVE MODERN CONCEPT SECTION
+           ========================================================================== -->
+      <section class="why-beema-section" id="why-beema">
+        <div class="why-beema-glass-card">
+
+          <!-- Left Column: 3D Illustration Stage -->
+          <div class="why-img-stage-col">
+            <span class="why-eyebrow-badge">STRATEGIC ADVANTAGE</span>
+            <div class="why-img-stage">
+              <!-- Ambient Glow behind Image -->
+              <div class="why-stage-glow"></div>
+              
+              <!-- Main Mobile App Expertise Illustration -->
+              <img src="assets/images/mob1.png" alt="Why Beema Expertise" class="why-mob-img">
+
+            </div>
+          </div>
+
+          <!-- Right Column: Content & Feature Highlights -->
+          <div class="why-content-col">
+            <h2 class="why-main-title">Why Beemaaa.com?</h2>
+
+            <!-- Highlight Quote Box -->
+            <div class="why-quote-card">
+              <div class="quote-bar"></div>
+              <p class="quote-text">
+                "As a direct <strong>insurance broker</strong>, we <strong>represent the Customers</strong> and <strong>NOT the insurers</strong>."
+              </p>
+            </div>
+
+            <!-- Detailed Explanation Text -->
+            <p class="why-body-desc">
+              As an independent Insurance Broker, we offer a strategic and flexible approach to your insurance portfolio. With complete access to public and private sector insurance constituents, we negotiate the most competitive rates while maximizing your coverage scope.
+            </p>
+
+            <!-- 3 Grid Benefit Cards -->
+            <div class="why-benefits-grid">
+              <div class="why-benefit-card">
+                <div class="benefit-icon-box">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                </div>
+                <div class="benefit-info">
+                  <h4>Customer Centric</h4>
+                  <p>Independent advice prioritizing customer benefits first.</p>
+                </div>
+              </div>
+
+              <div class="why-benefit-card">
+                <div class="benefit-icon-box">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                </div>
+                <div class="benefit-info">
+                  <h4>Best Competitive Rates</h4>
+                  <p>Negotiated rates across all public & private insurers.</p>
+                </div>
+              </div>
+
+              <div class="why-benefit-card">
+                <div class="benefit-icon-box">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                </div>
+                <div class="benefit-info">
+                  <h4>Risk Management</h4>
+                  <p>Comprehensive risk advice to minimize your exposure.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ==========================================================================
+           BEEMAAA MOBILE APP EXPERIENCE SECTION
+           ========================================================================== -->
+      <section class="mobile-app-section" id="app">
+        <div class="mobile-app-glass-card">
+          
+          <!-- Background Ambient Luxury Glows -->
+          <div class="app-card-ambient-glow" aria-hidden="true"></div>
+
+          <!-- Left Content Column -->
+          <div class="app-content-col">
+            <div class="app-eyebrow-badge">
+              <span class="app-live-dot"></span>
+              <span>MOBILE APP EXPERIENCE</span>
+            </div>
+            
+            <h2 class="app-main-title">Get the <span class="app-gold-highlight">Beemaaa App</span></h2>
+            <p class="app-subtitle">All your insurance needs — simplified at your fingertips.</p>
+
+            <!-- Soft Luxury Feature Checklists -->
+            <ul class="app-features-list">
+              <li>
+                <span class="feature-check-icon">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </span>
+                <span>Compare 40+ insurance plans with instant accuracy</span>
+              </li>
+              <li>
+                <span class="feature-check-icon">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </span>
+                <span>Buy &amp; manage all your policies digitally in one vault</span>
+              </li>
+              <li>
+                <span class="feature-check-icon">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </span>
+                <span>Track claims and live policy status anytime, anywhere</span>
+              </li>
+              <li>
+                <span class="feature-check-icon">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </span>
+                <span>Instant PDF policy download &amp; 1-click sharing</span>
+              </li>
+              <li>
+                <span class="feature-check-icon">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </span>
+                <span>Become a Saathi and earn up to <strong>₹40,000 p.m.</strong></span>
+              </li>
+            </ul>
+
+            <!-- Store Download Badges (Full Width, Guaranteed Single Row on All Devices) -->
+            <div class="app-store-btns-row">
+              <a href="https://play.google.com/store/apps/details?id=com.wtonapp.id1719833826889&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" class="store-badge-btn google-play-btn" aria-label="Get it on Google Play">
+                <img src="assets/icon/google-play-badge.svg" alt="Get it on Google Play">
+              </a>
+
+              <a href="https://apps.apple.com/in/app/beemaaa/id6711350181" target="_blank" rel="noopener noreferrer" class="store-badge-btn apple-store-btn" aria-label="Download on the App Store">
+                <img src="assets/icon/app-store-badge.svg" alt="Download on the App Store">
+              </a>
+            </div>
+
+          </div>
+
+          <!-- Right 3D Mobile Showcase Stage -->
+          <div class="app-image-col">
+            <div class="app-img-stage">
+              <div class="app-stage-glow"></div>
+              <img src="assets/images/mobile_section.png" alt="Beema Mobile App Showcase" class="app-showcase-img">
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ==========================================================================
+           HONORS & RECOGNITIONS AWARDS SHOWCASE SECTION
+           ========================================================================== -->
+      <!-- ==========================================================================
+           HONORS & RECOGNITIONS AWARDS SHOWCASE SECTION (SINGLE CARD 5-SEC AUTO-SHOWCASE)
+           ========================================================================== -->
+      <section class="awards-showcase-section" id="awards">
+        <div class="awards-single-container" id="awardsSingleCard">
+          
+          <div class="awards-header-wrap">
+            <span class="award-eyebrow-badge">HONORS & RECOGNITIONS</span>
+            <div class="awards-nav-controls">
+              <button class="awards-arrow-btn" id="awardsPrevBtn" aria-label="Previous Award" type="button">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              </button>
+              <div class="awards-counter-pill">
+                <span id="awardsCurrentIndex">01</span> / <span>08</span>
+              </div>
+              <button class="awards-arrow-btn" id="awardsNextBtn" aria-label="Next Award" type="button">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="awards-single-stage">
+            
+            <!-- Card 1 -->
+            <div class="award-single-card active" data-index="0">
+              <div class="award-img-stage">
+                <img src="assets/images/award1.jpg" alt="Serving Those Who Serve the Nation">
+              </div>
+              <div class="award-item-content">
+                <h3 class="award-item-title">Serving Those Who Serve the Nation</h3>
+                <p class="award-item-desc">An honourable meeting with Rajnath Singh while presenting Kavaach—a step towards strengthening financial protection for our defence community.</p>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="award-single-card" data-index="1">
+              <div class="award-img-stage">
+                <img src="assets/images/award2.jpg" alt="Best Insurance Broker of the Year">
+              </div>
+              <div class="award-item-content">
+                <h3 class="award-item-title">Best Insurance Broker of the Year</h3>
+                <p class="award-item-desc">Winning the award for the Best Insurance Broker of the Year at the exclusive BFSI Leadership Awards 2022.</p>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="award-single-card" data-index="2">
+              <div class="award-img-stage">
+                <img src="assets/images/award3.jpg" alt="Best Insurance Broker Award 2022">
+              </div>
+              <div class="award-item-content">
+                <h3 class="award-item-title">Best Insurance Broker Award 2022</h3>
+                <p class="award-item-desc">Achieving the prestigious title of Best Insurance Broker of the Year at the renowned BFSI Leadership Awards 2022 is a remarkable accomplishment.</p>
+              </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="award-single-card" data-index="3">
+              <div class="award-img-stage">
+                <img src="assets/images/award4.jpg" alt="The Times Group Udaan Award">
+              </div>
+              <div class="award-item-content">
+                <h3 class="award-item-title">The Times Group Udaan the Rising Entrepreneurs</h3>
+                <p class="award-item-desc">Beemaaa.com's remarkable achievement of winning the Udaan 'The Rising Entrepreneurs' award, presented by The Times Group, is a testament to their exceptional talent and dedication.</p>
+              </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="award-single-card" data-index="4">
+              <div class="award-img-stage">
+                <img src="assets/images/award5.jpg" alt="Rising Entrepreneurs Pankaj Kumar and Richa Varshney">
+              </div>
+              <div class="award-item-content">
+                <h3 class="award-item-title">Rising Entrepreneurs to Our Honored Pankaj Kumar & Richa Varshney</h3>
+                <p class="award-item-desc">This esteemed recognition celebrates Pankaj Kumar and Richa Varshney’s exceptional entrepreneurial journey and their outstanding contributions to the business world.</p>
+              </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="award-single-card" data-index="5">
+              <div class="award-img-stage">
+                <img src="assets/images/award6.jpg" alt="Rising Entrepreneurs Award">
+              </div>
+              <div class="award-item-content">
+                <h3 class="award-item-title">The Rising Entrepreneurs' Award</h3>
+                <p class="award-item-desc">Beemaaa.com's outstanding accomplishment of winning the Udaan 'Rising Entrepreneurs' award, bestowed upon them by The Times Group, is a clear testament to their remarkable talent and unwavering dedication.</p>
+              </div>
+            </div>
+
+            <!-- Card 7 -->
+            <div class="award-single-card" data-index="6">
+              <div class="award-img-stage">
+                <img src="assets/images/award7.jpg" alt="Member of CII Group">
+              </div>
+              <div class="award-item-content">
+                <h3 class="award-item-title">Member of CII Group</h3>
+                <p class="award-item-desc">Beemaaa.com takes immense pride in being a part of the prestigious CII (Confederation of Indian Industry) group, benefiting from an extensive network, resources, and industry expertise.</p>
+              </div>
+            </div>
+
+            <!-- Card 8 -->
+            <div class="award-single-card" data-index="7">
+              <div class="award-img-stage">
+                <img src="assets/images/award8.jpg" alt="CEO Award">
+              </div>
+              <div class="award-item-content">
+                <h3 class="award-item-title">Our Honourable Mr. Pankaj Kumar</h3>
+                <p class="award-item-desc">Our CEO has been recognized with the prestigious 'Udaan: The Rising Entrepreneurs Award', a testament to their outstanding leadership and entrepreneurial spirit.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================================================
+           OUR VISION, MISSION & CORE VALUES SECTION (CREATIVE BENTO LAYOUT)
+           ========================================================================== -->
+      <section class="vision-mission-section" id="vision-mission">
+        
+        <!-- Main Section Header at Very Top -->
+        <div class="vm-section-header">
+          <div class="vm-header-left">
+            <span class="vm-pill-badge values-pill">GUIDING PRINCIPLES</span>
+            <h2 class="vm-section-title">Our Vision, Mission & Core Values</h2>
+          </div>
+
+          <!-- Mobile Interactive Fluid Pill Switcher (Visible on Phone Only) -->
+          <div class="vm-mobile-switcher" role="tablist" aria-label="Guiding Principles Navigation">
+            <button class="vm-switch-tab active" data-tab="vision" type="button" role="tab" aria-selected="true">
+              <span class="switch-icon">🎯</span>
+              <span>Vision</span>
+            </button>
+            <button class="vm-switch-tab" data-tab="mission" type="button" role="tab" aria-selected="false">
+              <span class="switch-icon">⚡</span>
+              <span>Mission</span>
+            </button>
+            <button class="vm-switch-tab" data-tab="values" type="button" role="tab" aria-selected="false">
+              <span class="switch-icon">💎</span>
+              <span>Values</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="vm-bento-container" id="vmBentoContainer">
+          
+          <!-- Top Row: Vision & Mission (2 Equal Hero Bento Cards) -->
+          <div class="vm-top-row">
+            
+            <!-- Vision Bento Card -->
+            <div class="vm-bento-card vision-bento" data-panel="vision">
+              <div class="vm-card-glow glow-amber" aria-hidden="true"></div>
+              <div class="vm-card-top flex-between">
+                <span class="vm-pill-badge vision-pill">GOAL &amp; DIRECTION</span>
+                <div class="vm-card-icon icon-amber-glow">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+                </div>
+              </div>
+              <div class="vm-card-body">
+                <h3 class="vm-card-h3">Our Vision</h3>
+                <p class="vm-card-p">
+                  To become a leader in providing protection solutions to make all segments of society financially strong and create significant value for all stakeholders.
+                </p>
+                <div class="vm-proof-tags">
+                  <span class="vm-tag">🛡️ 100% Financial Inclusion</span>
+                  <span class="vm-tag">📈 Lasting Stakeholder Trust</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mission Bento Card -->
+            <div class="vm-bento-card mission-bento" data-panel="mission">
+              <div class="vm-card-glow glow-teal" aria-hidden="true"></div>
+              <div class="vm-card-top flex-between">
+                <span class="vm-pill-badge mission-pill">PURPOSE &amp; DRIVE</span>
+                <div class="vm-card-icon icon-teal-glow">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                </div>
+              </div>
+              <div class="vm-card-body">
+                <h3 class="vm-card-h3">Our Mission</h3>
+                <p class="vm-card-p">
+                  To deliver the most suitable Insurance solutions and superior value to all stakeholders, customers, shareholders, employees, and society at large.
+                </p>
+                <div class="vm-proof-tags">
+                  <span class="vm-tag">⚡ Precision Plan Curation</span>
+                  <span class="vm-tag">🤝 Dedicated Fiduciary Care</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom Row: Our Core Values (4-Column Bento Strip) -->
+          <div class="vm-values-bento" data-panel="values">
+            <div class="values-bento-header">
+              <span class="vm-pill-badge values-pill">OUR 4 PILLARS</span>
+              <h3 class="values-bento-title">Core Principles of Excellence</h3>
+            </div>
+            
+            <div class="values-bento-grid">
+              
+              <!-- Value 1: Commitment -->
+              <div class="value-bento-item val-teal">
+                <div class="value-item-icon icon-teal">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 11 12 14 22 4"></polyline></svg>
+                </div>
+                <div class="value-item-info">
+                  <h4 class="value-item-title">Commitment</h4>
+                  <p class="value-item-desc">Excellence &amp; reliability in every protection solution.</p>
+                </div>
+              </div>
+
+              <!-- Value 2: Integrity -->
+              <div class="value-bento-item val-blue">
+                <div class="value-item-icon icon-blue">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                </div>
+                <div class="value-item-info">
+                  <h4 class="value-item-title">Integrity</h4>
+                  <p class="value-item-desc">Highest ethical standards, honesty, and trust.</p>
+                </div>
+              </div>
+
+              <!-- Value 3: Transparency -->
+              <div class="value-bento-item val-amber">
+                <div class="value-item-icon icon-amber">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                </div>
+                <div class="value-item-info">
+                  <h4 class="value-item-title">Transparency</h4>
+                  <p class="value-item-desc">Clear, open communication with no hidden terms.</p>
+                </div>
+              </div>
+
+              <!-- Value 4: Empathy -->
+              <div class="value-bento-item val-rose">
+                <div class="value-item-icon icon-rose">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                </div>
+                <div class="value-item-info">
+                  <h4 class="value-item-title">Empathy</h4>
+                  <p class="value-item-desc">Genuine care, compassion, and personal support.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      
+      <!-- ==========================================================================
+           OUR BUSINESS PARTNERS SECTION (GRID WITH GRAYSCALE & HOVER EFFECT)
+           ========================================================================== -->
+      <section class="partners-section" id="partners">
+        <div class="partners-header">
+          <span class="partners-badge">
+            <span class="partners-badge-dot"></span>
+            <span>OUR NETWORK</span>
+          </span>
+          <h2 class="partners-main-title">Our Business Partners</h2>
+          <p class="partners-sub-title">Collaborating with India's most trusted insurance institutions to provide comprehensive protection.</p>
+        </div>
+
+        <div class="partners-grid-container">
+          <div class="partners-grid">
+            
+            <!-- Partner 1 -->
+            <div class="partner-box" title="Aviva Life Insurance">
+              <div class="partner-logo-wrap">
+                <img src="https://beemaaa.com/static/media/Aviva.30470a65.png" alt="Aviva Life Insurance" class="partner-logo" loading="lazy">
+              </div>
+            </div>
+
+            <!-- Partner 2 -->
+            <div class="partner-box" title="Bajaj Allianz">
+              <div class="partner-logo-wrap">
+                <img src="assets/icon/bajaj.jpeg" alt="Bajaj Allianz" class="partner-logo" loading="lazy">
+              </div>
+            </div>
+
+            <!-- Partner 3 -->
+            <div class="partner-box" title="Care Health Insurance">
+              <div class="partner-logo-wrap">
+                <img src="https://beemaaa.com/static/media/Care.9b4d0a7f.png" alt="Care Health Insurance" class="partner-logo" loading="lazy">
+              </div>
+            </div>
+
+            <!-- Partner 4 -->
+            <div class="partner-box" title="HDFC ERGO">
+              <div class="partner-logo-wrap">
+                <img src="assets/icon/HDFC-Ergo.png" alt="HDFC ERGO" class="partner-logo" loading="lazy">
+              </div>
+            </div>
+
+            <!-- Partner 5 -->
+            <div class="partner-box" title="Future Generali">
+              <div class="partner-logo-wrap">
+                <img src="https://beemaaa.com/static/media/9.0b42f4cd.jpg" alt="Future Generali" class="partner-logo" loading="lazy">
+              </div>
+            </div>
+
+            <!-- Partner 6 -->
+            <div class="partner-box" title="ICICI Prudential">
+              <div class="partner-logo-wrap">
+                <img src="https://beemaaa.com/static/media/Icici.808b1f2f.jpg" alt="ICICI Prudential" class="partner-logo" loading="lazy">
+              </div>
+            </div>
+
+            <!-- Partner 7 -->
+            <div class="partner-box" title="ICICI Lombard">
+              <div class="partner-logo-wrap">
+                <img src="https://beemaaa.com/static/media/icicilombard.ec6db182.png" alt="ICICI Lombard" class="partner-logo" loading="lazy">
+              </div>
+            </div>
+
+            <!-- Partner 8 -->
+            <div class="partner-box" title="IFFCO Tokio">
+              <div class="partner-logo-wrap">
+                <img src="https://beemaaa.com/static/media/iffco.cada76a6.jpg" alt="IFFCO Tokio" class="partner-logo" loading="lazy">
+              </div>
+            </div>
+
+            <!-- Partner 9 -->
+            <div class="partner-box" title="Kotak Mahindra">
+              <div class="partner-logo-wrap">
+                <img src="https://beemaaa.com/static/media/kotak_logo.ce4601d9.png" alt="Kotak Mahindra" class="partner-logo" loading="lazy">
+              </div>
+            </div>
+
+            <!-- Partner 10 -->
+            <div class="partner-box" title="Max Life Insurance">
+              <div class="partner-logo-wrap">
+                <img src="https://beemaaa.com/static/media/max.358ee388.png" alt="Max Life Insurance" class="partner-logo" loading="lazy">
+              </div>
+            </div>
+
+            <!-- Partner 11 -->
+            <div class="partner-box" title="Niva Bupa Health Insurance">
+              <div class="partner-logo-wrap">
+                <img src="https://beemaaa.com/static/media/Niva.png" alt="Niva Bupa Health Insurance" class="partner-logo">
+              </div>
+            </div>
+
+            <!-- Partner 12 -->
+            <div class="partner-box" title="Oriental Insurance">
+              <div class="partner-logo-wrap">
+                <img src="https://beemaaa.com/static/media/oriental.b928ef11.jpg" alt="Oriental Insurance" class="partner-logo" loading="lazy">
+              </div>
+            </div>
+
+            <!-- Partner 13 -->
+            <div class="partner-box" title="PNB MetLife">
+              <div class="partner-logo-wrap">
+                <img src="https://beemaaa.com/static/media/pnb%20met.994a6fbd.png" alt="PNB MetLife" class="partner-logo" loading="lazy">
+              </div>
+            </div>
+
+            <!-- Partner 14 -->
+            <div class="partner-box" title="SBI General Insurance">
+              <div class="partner-logo-wrap">
+                <img src="https://beemaaa.com/static/media/sbi-gene.49b06e3f.jpg" alt="SBI General Insurance" class="partner-logo" loading="lazy">
+              </div>
+            </div>
+
+            <!-- Partner 15 -->
+            <div class="partner-box" title="Star Health Insurance">
+              <div class="partner-logo-wrap">
+                <img src="https://beemaaa.com/static/media/star_logo.5eff7fa3.png" alt="Star Health Insurance" class="partner-logo" loading="lazy">
+              </div>
+            </div>
+
+            <!-- Partner 16 -->
+            <div class="partner-box" title="Royal Sundaram">
+              <div class="partner-logo-wrap">
+                <img src="https://beemaaa.com/static/media/sundaram.6112b913.jpg" alt="Royal Sundaram" class="partner-logo" loading="lazy">
+              </div>
+            </div>
+
+            <!-- Partner 17 -->
+            <div class="partner-box" title="Universal Sompo">
+              <div class="partner-logo-wrap">
+                <img src="https://beemaaa.com/static/media/universal_logo.2b23d5c5.png" alt="Universal Sompo" class="partner-logo" loading="lazy">
+              </div>
+            </div>
+
+            <!-- Partner 18 -->
+            <div class="partner-box" title="SBI Life Insurance">
+              <div class="partner-logo-wrap">
+                <img src="https://beemaaa.com/static/media/SBI_Life1.10b21738.jpg" alt="SBI Life Insurance" class="partner-logo" loading="lazy">
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- ==========================================================================
+       5. MODERN MINIMAL PROFESSIONAL FOOTER (FULL BLEED / ZERO OUTER MARGIN)
+       ========================================================================== -->
+  <footer class="pro-footer" id="site-footer">
+        
+        <!-- Top Brand & Trust Row -->
+        <div class="footer-top-wrap">
+          <div class="footer-inner">
+            <div class="footer-brand-bar">
+              <div class="footer-brand-group">
+                <div class="footer-company-name">SPECTRUM INSURANCE BROKING (P) LTD</div>
+                <div class="footer-reg-pill">IRDAI REG. NO. 809 • DIRECT BROKER (LIFE &amp; GENERAL)</div>
+              </div>
+              <div class="footer-startup-badge">
+                <span class="startup-tag">#STARTUPINDIA</span>
+                <span class="startup-sub">Recognized by DPIIT, Govt. of India</span>
+              </div>
+              <div class="footer-social-strip">
+                <a href="https://www.facebook.com/spectruminsurance1" target="_blank" rel="noopener noreferrer" class="social-sq-btn" aria-label="Facebook">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                </a>
+                <a href="https://twitter.com/SpectrumInsura2" target="_blank" rel="noopener noreferrer" class="social-sq-btn" aria-label="Twitter">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
+                </a>
+                <a href="https://www.instagram.com/beemaaa.com/" target="_blank" rel="noopener noreferrer" class="social-sq-btn" aria-label="Instagram">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="0"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
+                </a>
+                <a href="https://www.linkedin.com/company/spectrumdelhi/1" target="_blank" rel="noopener noreferrer" class="social-sq-btn" aria-label="LinkedIn">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Middle Main Navigation Matrix -->
+        <div class="footer-nav-wrap">
+          <div class="footer-inner">
+            <div class="footer-links-grid">
+              
+              <!-- Column 1: Motor Insurance -->
+              <div class="footer-nav-col">
+                <div class="footer-group-heading">Motor Insurance</div>
+                <ul class="footer-nav-list">
+                  <li><a href="/home/Car_Insurance">Private Car Insurance</a></li>
+                  <li><a href="/home/bike-Insurance">Two Wheeler Insurance</a></li>
+                  <li><a href="/home/commercial/pcv">Commercial Vehicle</a></li>
+                  <li><a href="/home/commercial/pcv">Taxi Insurance</a></li>
+                </ul>
+              </div>
+
+              <!-- Column 2: Health Insurance -->
+              <div class="footer-nav-col">
+                <div class="footer-group-heading">Health Insurance</div>
+                <ul class="footer-nav-list">
+                  <li><a href="/home/health-Insurance">Family Health Plan</a></li>
+                  <li><a href="/home/health-Insurance">Individual Insurance</a></li>
+                  <li><a href="/home/health-Insurance">Senior Citizen Care</a></li>
+                  <li><a href="/home/health-Insurance">Critical Illness Cover</a></li>
+                </ul>
+              </div>
+
+              <!-- Column 3: Life Insurance -->
+              <div class="footer-nav-col">
+                <div class="footer-group-heading">Life Insurance</div>
+                <ul class="footer-nav-list">
+                  <li><a href="/home/term-life">Term Life Plan</a></li>
+                  <li><a href="/life-insurance/wealth-insurance-plan">Investment Plans</a></li>
+                  <li><a href="/life-insurance/wealth-insurance-plan">Wealth Insurance</a></li>
+                  <li><a href="/home/term-life">Retirement &amp; Annuity</a></li>
+                </ul>
+              </div>
+
+              <!-- Column 4: Other Insurance -->
+              <div class="footer-nav-col">
+                <div class="footer-group-heading">Other Insurance</div>
+                <ul class="footer-nav-list">
+                  <li><a href="/general-insurance/travel-insurance-policy">Travel Insurance</a></li>
+                  <li><a href="/home/commercial/pcv">Commercial Auto</a></li>
+                  <li><a href="/general-insurance/travel-insurance-policy">SME &amp; Business</a></li>
+                  <li><a href="/general-insurance/travel-insurance-policy">Property Insurance</a></li>
+                </ul>
+              </div>
+
+              <!-- Column 5: Important Links -->
+              <div class="footer-nav-col">
+                <div class="footer-group-heading">Important Links</div>
+                <ul class="footer-nav-list">
+                  <li><a href="/insurance-blog">Insurance Blogs</a></li>
+                  <li><a href="/spectrum-career-opportunities">Career Opportunities</a></li>
+                  <li><a href="/contact-us">Contact Headquarters</a></li>
+                  <li><a href="/yoddha-of-spectrum">Spectrum Kavvach</a></li>
+                  <li><a href="/spectrum-awards_&amp;_achivement">Awards &amp; Milestones</a></li>
+                  <li><a href="/about-us">About Us</a></li>
+                </ul>
+              </div>
+
+              <!-- Column 6: Documents & Compliance -->
+              <div class="footer-nav-col">
+                <div class="footer-group-heading">Documents &amp; Legal</div>
+                <ul class="footer-nav-list">
+                  <li><a href="/disclaimer">Disclaimer Notice</a></li>
+                  <li><a href="/terms-of-use">Terms of Use</a></li>
+                  <li><a href="/refundPolicy">Refund Policy</a></li>
+                  <li><a href="/privacy-policy">Privacy Policy</a></li>
+                  <li><a href="/faqs">FAQ &amp; Support</a></li>
+                  <li><a href="/spectrum/gallery">Media Gallery</a></li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Communication / Corporate Info Matrix -->
+        <div class="footer-comm-wrap">
+          <div class="footer-inner">
+            <div class="footer-comm-grid">
+              
+              <!-- Office Location -->
+              <div class="comm-block">
+                <div class="comm-icon-box">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                </div>
+                <div class="comm-content">
+                  <span class="comm-label">Corporate Office</span>
+                  <p class="comm-text">Unit 502, 5th Floor, Plot No. 5, Time House Tower, Wazirpur Community Centre, WIA, Delhi - 110052</p>
+                </div>
+              </div>
+
+              <!-- Email & Inquiries -->
+              <div class="comm-block">
+                <div class="comm-icon-box">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                </div>
+                <div class="comm-content">
+                  <span class="comm-label">Official Email Support</span>
+                  <a href="mailto:care@beemaaa.com" class="comm-link">care@beemaaa.com</a>
+                  <span class="comm-sub">Principal Officer: Mr. Pankaj Gupta</span>
+                </div>
+              </div>
+
+              <!-- Helpline & Grievance -->
+              <div class="comm-block">
+                <div class="comm-icon-box">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                </div>
+                <div class="comm-content">
+                  <span class="comm-label">Helpline &amp; Claims</span>
+                  <a href="tel:+911141446615" class="comm-link">+91 1141446615</a>
+                  <span class="comm-sub">Grievance: <a href="tel:+917669333905" class="comm-inline-link">+91 7669333905</a></span>
+                </div>
+              </div>
+
+              <!-- Knowledge & PDF Downloads -->
+              <div class="comm-block">
+                <div class="comm-icon-box">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" x2="12" y1="18" y2="12"></line><line x1="9" x2="15" y1="15" y2="15"></line></svg>
+                </div>
+                <div class="comm-content">
+                  <span class="comm-label">Knowledge Centre</span>
+                  <a href="/Knowledge_centre" class="comm-link">PDF Downloads &amp; Forms →</a>
+                  <span class="comm-sub">Policy guides, claim forms &amp; tax info</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Statutory Regulatory Disclaimer & Legal Bottom Bar -->
+        <div class="footer-legal-wrap">
+          <div class="footer-inner">
+            <div class="footer-legal-content">
+
+              <div class="footer-bottom-line">
+                <span class="copyright-text">© 2026 Spectrum Insurance Broking (P) Ltd. All Rights Reserved.</span>
+                <div class="footer-mini-links">
+                  <a href="/disclaimer">Disclaimer</a>
+                  <span class="sep">•</span>
+                  <a href="/privacy-policy">Privacy Policy</a>
+                  <span class="sep">•</span>
+                  <a href="/terms-of-use">Terms of Use</a>
+                  <span class="sep">•</span>
+                  <a href="/faqs">FAQs</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </footer>
+
+  <!-- ==========================================================================
+       6. CONTACT MODAL POPUP
+       ========================================================================== -->
+  <div class="modal-overlay" id="contactModal">
+    <div class="modal-card">
+      <button class="modal-close-btn" id="modalCloseBtn" aria-label="Close modal">✕</button>
+      <h3 class="modal-title">Let's build together</h3>
+      <p class="modal-sub">Tell us about your startup idea or partnership inquiry.</p>
+      
+      <form class="contact-form" id="contactForm">
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" required placeholder="Alex Turner">
+        </div>
+        <div class="form-group">
+          <label for="email">Work Email</label>
+          <input type="email" id="email" required placeholder="alex@company.com">
+        </div>
+        <div class="form-group">
+          <label for="message">Startup Idea / Message</label>
+          <textarea id="message" rows="4" required placeholder="Tell us what you're building..."></textarea>
+        </div>
+        <button type="submit" class="form-submit-btn">Send Message</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- GSAP & ScrollTrigger Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <script src="script.js"></script>
+</body>
+</html>

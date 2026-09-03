@@ -2,6 +2,29 @@
 // ZENTARA VENTURE STUDIO - INTERACTIVE JS
 // ==========================================================================
 
+// 0. Page Preloader Dismissal Controller
+(function initPagePreloader() {
+  const dismissPreloader = () => {
+    const preloader = document.getElementById('pagePreloader');
+    if (preloader && !preloader.classList.contains('is-loaded')) {
+      setTimeout(() => {
+        preloader.classList.add('is-loaded');
+        setTimeout(() => {
+          preloader.remove();
+        }, 700);
+      }, 400);
+    }
+  };
+
+  if (document.readyState === 'complete') {
+    dismissPreloader();
+  } else {
+    window.addEventListener('load', dismissPreloader);
+    // Fallback safety timeout so user is never stuck
+    setTimeout(dismissPreloader, 2500);
+  }
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
   // ==========================================================================
   // 0.0 LENIS SMOOTH SCROLLING ENGINE & GSAP SCROLLTRIGGER SYNCHRONIZATION

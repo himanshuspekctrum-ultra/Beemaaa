@@ -213,22 +213,22 @@ body {
 
 /* Sticky Navigation Bar across Entire Website on Scroll */
 .navbar.is-sticky {
-  position: fixed;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 32px);
-  max-width: 1440px;
-  padding: 6px 20px;
-  min-height: 44px;
-  box-sizing: border-box;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.95);
-  border-radius: 100px;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
-  z-index: 9999;
+  position: fixed !important;
+  top: 10px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: calc(100% - 32px) !important;
+  max-width: 1440px !important;
+  padding: 6px 20px !important;
+  min-height: 44px !important;
+  box-sizing: border-box !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  border-radius: 100px !important;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+  z-index: 99999 !important;
 }
 
 .brand-logo {
@@ -582,7 +582,7 @@ a[href="#login"].nav-link:hover {
   font-size: 0.75rem;
   line-height: 14px;
   letter-spacing: 1.2px;
-  transition: all 0.2s 0.1s;
+  transition: padding 0.25s ease, background 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
   background-image: linear-gradient(90deg, #1c1c1c, #afa40e);
   border: 0 solid;
   overflow: hidden;
@@ -593,7 +593,6 @@ a[href="#login"].nav-link:hover {
 
 .hero-book-visit-btn:hover {
   cursor: pointer;
-  transition: all 0.3s ease-in;
   padding-right: 30px;
   padding-left: 30px;
   color: #ffffff;
@@ -5740,14 +5739,58 @@ a[href="#login"].nav-link:hover {
     padding-bottom: 6px;
   }
 
-  /* 3D Orbit Rotating Section */
+  /* 3D Orbit Rotating Section - Compact Mobile Height & Natural Flow */
+  .featured-orbit-section {
+    min-height: auto !important;
+    height: auto !important;
+    padding: 20px 0 16px 0 !important;
+  }
+
+  .orbit-inner-wrapper {
+    padding: 0 16px !important;
+    gap: 8px !important;
+  }
+
+  .orbit-header-bar {
+    margin-top: 0 !important;
+    margin-bottom: 2px !important;
+  }
+
+  .orbit-main-heading {
+    font-size: clamp(1.4rem, 5vw, 1.8rem) !important;
+  }
+
   .orbit-stage-container {
-    height: 440px !important;
+    height: 230px !important;
+    margin: 0 auto !important;
+  }
+
+  .orbit-card-item {
+    width: 165px !important;
+    height: 104px !important;
+    margin-top: -52px !important;
+    margin-left: -82px !important;
+    border-radius: 12px !important;
+  }
+
+  .orbit-card-inner {
+    border-radius: 12px !important;
+  }
+
+  .orbit-ambient-glow {
+    width: 280px !important;
+    height: 160px !important;
+    filter: blur(28px) !important;
+  }
+
+  .orbit-guide-ellipse-svg {
+    display: none !important;
   }
 
   /* Why Beema Section */
   .why-beema-section {
-    padding: 20px 0;
+    padding: 16px 0 20px 0 !important;
+    margin-top: 0 !important;
   }
 
   .why-beema-glass-card {
@@ -6179,3 +6222,43 @@ a[href="#login"].nav-link:hover {
     padding: 0 12px !important;
   }
 }
+
+/* ==========================================================================
+   6. PREMIUM GSAP SCROLL-REVEAL HARDWARE ACCELERATION & MOTION UTILITIES
+   ========================================================================== */
+.gsap-reveal-clip {
+  overflow: hidden;
+  clip-path: inset(0 0 0 0);
+  will-change: clip-path, transform, opacity;
+}
+
+.gsap-hw-accel {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+/* Smooth hardware acceleration for cards and images during scroll reveals */
+.service-card-item,
+.partner-box,
+.why-benefit-card,
+.value-bento-item,
+.vm-bento-card,
+.why-mob-img,
+.app-showcase-img {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* High-contrast and accessible reduced motion handling */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+

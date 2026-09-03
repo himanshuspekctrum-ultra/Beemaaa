@@ -24,12 +24,12 @@ document.addEventListener('DOMContentLoaded', () => {
       lenis.on('scroll', ScrollTrigger.update);
     }
 
-    // Connect Lenis RAF to GSAP Ticker for 60/120fps smooth lockstep
+    // Connect Lenis RAF to GSAP Ticker for smooth 60/120fps lockstep
     if (typeof gsap !== 'undefined') {
       gsap.ticker.add((time) => {
         lenis.raf(time * 1000);
       });
-      gsap.ticker.lagSmoothing(0);
+      gsap.ticker.lagSmoothing(500, 33);
     } else {
       function raf(time) {
         lenis.raf(time);
@@ -929,28 +929,27 @@ document.addEventListener('DOMContentLoaded', () => {
   const orbitSection = document.getElementById('featured-solutions');
   const orbitCards = document.querySelectorAll('.orbit-card-item');
   const orbitPills = document.querySelectorAll('.orbit-pill');
+  const orbitStageContainer = document.getElementById('orbitStageContainer');
 
   if (orbitSection && orbitCards.length > 0) {
     const totalOrbitCards = orbitCards.length;
-    let orbitTrigger = null;
     let closestCardIndex = 0;
+    let isMobileSwiping = false;
+    let mobileTouchStartX = 0;
+    let mobileRotationOffset = 0;
 
     const updateOrbitPositions = (rawProgress) => {
-      // Clamp progress cleanly between 0 and 1
       const progress = Math.min(1, Math.max(0, rawProgress || 0));
-      // Complete quadrant / quarter rotation across the scroll distance
-      const totalRotation = progress * (Math.PI * 0.5);
-
-      const isMobile = window.innerWidth < 768;
-      const isTablet = window.innerWidth < 1024;
+      const isMobile = window.innerWidth <= 768;
+      const isTablet = window.innerWidth < 1024 && !isMobile;
 
       let maxFocal = -999;
 
       if (isMobile) {
-        // PHONE-FIRST 3D CYLINDER PERSPECTIVE CAROUSEL
-        // Centered apex where active card sits front and center with 3D depth tilt on sides
-        const rxMobile = Math.min(window.innerWidth * 0.42, 175);
+        // PHONE-FIRST 3D CYLINDER PERSPECTIVE (Natural, Compact & Fluid)
+        const rxMobile = Math.min(window.innerWidth * 0.38, 140);
         const arcLimit = 1.85;
+        const totalRotation = (progress * Math.PI * 1.5) + mobileRotationOffset;
 
         orbitCards.forEach((card, i) => {
           const baseAngle = (i / totalOrbitCards) * Math.PI * 2;
@@ -971,11 +970,10 @@ document.addEventListener('DOMContentLoaded', () => {
             card.style.visibility = 'visible';
             card.style.pointerEvents = 'auto';
 
-            // Coordinates along centered 3D cylinder
             const x = rxMobile * Math.sin(angle);
-            const z = -120 * (1 - Math.cos(angle));
-            const y = 14 * Math.sin(angle * 0.5);
-            const rotY = -(angle * (180 / Math.PI)) * 0.35;
+            const z = -85 * (1 - Math.cos(angle));
+            const y = 6 * Math.sin(angle * 0.5);
+            const rotY = -(angle * (180 / Math.PI)) * 0.30;
 
             const proximityFactor = Math.max(0, 1 - (absAngle / arcLimit));
             const focalFactor = Math.max(0, Math.cos(angle));
@@ -985,7 +983,7 @@ document.addEventListener('DOMContentLoaded', () => {
               closestCardIndex = i;
             }
 
-            const scale = 0.76 + 0.38 * Math.pow(proximityFactor, 1.25);
+            const scale = 0.82 + 0.28 * Math.pow(proximityFactor, 1.2);
             const opacity = Math.min(1, Math.max(0, proximityFactor * 1.9));
             const zIndex = Math.round(100 + proximityFactor * 500);
 
@@ -998,6 +996,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       } else {
         // DESKTOP & TABLET EXPANSIVE 3D ARC WHEEL (Left-to-Right layout)
+        const totalRotation = progress * (Math.PI * 0.5);
         const cardHalfW = isTablet ? 38 : 48;
         const leftBoundary = -(window.innerWidth * 0.5) + cardHalfW + (isTablet ? 16 : 24);
 
@@ -1061,49 +1060,829 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize base positions immediately
     updateOrbitPositions(0);
 
-    // Register with GSAP ScrollTrigger
-    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-      const orbitRotationDist = 1000;
-
-      // Clean ScrollTrigger pin for circular orbit rotation
-      orbitTrigger = ScrollTrigger.create({
-        trigger: orbitSection,
-        start: "top 70px",
-        end: `+=${orbitRotationDist}`,
-        pin: true,
-        pinSpacing: true,
-        anticipatePin: 1,
-        scrub: 1,
-        invalidateOnRefresh: true,
-        onUpdate: (self) => {
-          updateOrbitPositions(self.progress || 0);
-        }
-      });
-
-      // Interactive Click on Pills to scroll directly to that card's focal position
-      orbitPills.forEach((pill) => {
-        pill.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const targetIdx = parseInt(pill.getAttribute('data-index'), 10);
-          if (!isNaN(targetIdx) && orbitTrigger) {
-            const targetProgress = Math.min(1, targetIdx / (totalOrbitCards - 1));
-            const targetScroll = orbitTrigger.start + (orbitTrigger.end - orbitTrigger.start) * targetProgress;
-            window.scrollTo({
-              top: targetScroll,
-              behavior: 'smooth'
-            });
-          }
-        });
-      });
-
-      // Window resize re-calculation
-      window.addEventListener('resize', () => {
-        if (orbitTrigger) {
-          updateOrbitPositions(orbitTrigger.progress || 0);
+    // Mobile Touch Gesture Support for effortless spinning
+    if (orbitStageContainer) {
+      orbitStageContainer.addEventListener('touchstart', (e) => {
+        if (e.touches && e.touches.length > 0) {
+          mobileTouchStartX = e.touches[0].clientX;
+          isMobileSwiping = true;
         }
       }, { passive: true });
+
+      orbitStageContainer.addEventListener('touchmove', (e) => {
+        if (!isMobileSwiping || window.innerWidth > 768) return;
+        if (e.touches && e.touches.length > 0) {
+          const currentX = e.touches[0].clientX;
+          const deltaX = currentX - mobileTouchStartX;
+          mobileTouchStartX = currentX;
+          mobileRotationOffset -= deltaX * 0.005;
+          updateOrbitPositions(0);
+        }
+      }, { passive: true });
+
+      orbitStageContainer.addEventListener('touchend', () => {
+        isMobileSwiping = false;
+      }, { passive: true });
+    }
+
+    // Register with GSAP ScrollTrigger
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+      ScrollTrigger.matchMedia({
+        // Desktop (> 768px): Pinned 3D Arc Wheel
+        "(min-width: 769px)": function() {
+          const orbitRotationDist = 1000;
+          const desktopTrigger = ScrollTrigger.create({
+            trigger: orbitSection,
+            start: "top 70px",
+            end: `+=${orbitRotationDist}`,
+            pin: true,
+            pinSpacing: true,
+            anticipatePin: 1,
+            scrub: 1,
+            invalidateOnRefresh: true,
+            onUpdate: (self) => {
+              updateOrbitPositions(self.progress || 0);
+            }
+          });
+
+          // Interactive Click on Pills
+          orbitPills.forEach((pill) => {
+            pill.addEventListener('click', (e) => {
+              e.stopPropagation();
+              const targetIdx = parseInt(pill.getAttribute('data-index'), 10);
+              if (!isNaN(targetIdx) && desktopTrigger) {
+                const targetProgress = Math.min(1, targetIdx / (totalOrbitCards - 1));
+                const targetScroll = desktopTrigger.start + (desktopTrigger.end - desktopTrigger.start) * targetProgress;
+                window.scrollTo({
+                  top: targetScroll,
+                  behavior: 'smooth'
+                });
+              }
+            });
+          });
+        },
+
+        // Mobile (<= 768px): Unpinned Smooth Viewport Scrub (Zero Pinning, Natural Bottom Section Flow)
+        "(max-width: 768px)": function() {
+          ScrollTrigger.create({
+            trigger: orbitSection,
+            start: "top 85%",
+            end: "bottom 15%",
+            scrub: 1,
+            onUpdate: (self) => {
+              if (!isMobileSwiping) {
+                updateOrbitPositions(self.progress);
+              }
+            }
+          });
+        }
+      });
     }
   }
+
+  /* ==========================================================================
+     8. HIGH-PERFORMANCE GSAP SCROLL-REVEAL SYSTEM (60/120 FPS FLUID MOTION)
+     ========================================================================== */
+  const initScrollRevealSystem = () => {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+    // Accessibility check for reduced motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      gsap.set([
+        '.navbar', '.hero-pitch-text', '.hero-main-title', '.hero-book-visit-btn',
+        '.service-card-item', '.trust-badge', '.trust-main-heading', '.trust-sub-heading',
+        '.trust-controls-group', '.trust-mobile-pills', '.gsap-banner-stage',
+        '.orbit-badge', '.orbit-main-heading', '.orbit-guide-ellipse-svg',
+        '.why-beema-glass-card', '.why-eyebrow-badge', '.why-mob-img', '.why-main-title',
+        '.why-quote-card', '.why-body-desc', '.why-benefit-card', '.why-stage-glow',
+        '.mobile-app-glass-card', '.app-eyebrow-badge', '.app-main-title', '.app-subtitle',
+        '.app-features-list li', '.app-store-btns-row a', '.app-showcase-img', '.app-stage-glow',
+        '.awards-header-wrap', '.awards-single-stage', '.vm-pill-badge', '.vm-section-title',
+        '.vm-mobile-switcher', '.vision-bento', '.mission-bento', '.values-bento-header',
+        '.value-bento-item', '.partners-badge', '.partners-main-title', '.partners-sub-title',
+        '.partner-box', '.footer-top-wrap', '.footer-nav-col', '.comm-block', '.footer-legal-wrap'
+      ], { opacity: 1, y: 0, x: 0, scale: 1, clipPath: 'none', clearProps: 'all' });
+      return;
+    }
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Responsive ScrollReveal Controller
+    ScrollTrigger.matchMedia({
+      
+      // ========================================================================
+      // A. DESKTOP & TABLET PROFILE (min-width: 769px) - Silky Smooth & Fluid
+      // ========================================================================
+      '(min-width: 769px)': function() {
+        
+        // 1. HERO SECTION (Instant, Natural Appearance — Zero Jumps, Zero Lag)
+        const heroCard = document.querySelector('.hero-card');
+        if (heroCard) {
+          const heroTl = gsap.timeline({ defaults: { ease: 'power2.out' } });
+
+          heroTl
+            .fromTo('.navbar', 
+              { y: -10, opacity: 0.7 }, 
+              { y: 0, opacity: 1, duration: 0.4, clearProps: 'all' }
+            )
+            .fromTo('.hero-pitch-text', 
+              { opacity: 0.5, y: 8 }, 
+              { opacity: 1, y: 0, duration: 0.4, clearProps: 'all' }, 
+              '-=0.25'
+            )
+            .fromTo('.hero-main-title', 
+              { opacity: 0.6, y: 12 }, 
+              { opacity: 1, y: 0, duration: 0.45, clearProps: 'all' }, 
+              '-=0.25'
+            )
+            .fromTo('.hero-book-visit-btn', 
+              { opacity: 0.7, scale: 0.98 }, 
+              { opacity: 1, scale: 1, duration: 0.4, clearProps: 'all' }, 
+              '-=0.3'
+            );
+        }
+
+        // 2. INSURANCE SERVICES GRID (Staggered Matrix Flow from Below)
+        const servicesSection = document.querySelector('.insurance-services-section');
+        if (servicesSection) {
+          gsap.fromTo('.service-card-item', 
+            {
+              y: 40,
+              opacity: 0,
+              scale: 0.96
+            },
+            {
+              y: 0,
+              opacity: 1,
+              scale: 1,
+              duration: 0.7,
+              ease: 'power3.out',
+              stagger: {
+                each: 0.035,
+                from: 'start',
+                grid: 'auto'
+              },
+              clearProps: 'transform,opacity',
+              scrollTrigger: {
+                trigger: servicesSection,
+                start: 'top 85%',
+                once: true
+              }
+            }
+          );
+        }
+
+        // 3. TRUST SECTION HEADER
+        const trustSectionEl = document.getElementById('trust-milestones');
+        if (trustSectionEl) {
+          const trustTl = gsap.timeline({
+            scrollTrigger: {
+              trigger: trustSectionEl,
+              start: 'top 85%',
+              once: true
+            }
+          });
+
+          trustTl
+            .fromTo('.trust-badge', 
+              { y: 15, opacity: 0 }, 
+              { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out', clearProps: 'transform,opacity' }
+            )
+            .fromTo('.trust-main-heading', 
+              { y: 40, opacity: 0 }, 
+              { y: 0, opacity: 1, duration: 0.75, ease: 'power3.out', clearProps: 'transform,opacity' }, 
+              '-=0.3'
+            )
+            .fromTo('.trust-sub-heading', 
+              { y: 25, opacity: 0 }, 
+              { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out', clearProps: 'transform,opacity' }, 
+              '-=0.45'
+            )
+            .fromTo('.trust-controls-group', 
+              { y: 20, opacity: 0 }, 
+              { y: 0, opacity: 1, duration: 0.55, ease: 'power2.out', clearProps: 'transform,opacity' }, 
+              '-=0.4'
+            );
+        }
+
+        // 4. GSAP CINEMATIC PROMO BANNER SECTION ENTRANCE
+        const bannerSectionEl = document.getElementById('gsapPromoBanner');
+        if (bannerSectionEl) {
+          gsap.fromTo('.gsap-banner-stage', 
+            {
+              y: 40,
+              opacity: 0,
+              scale: 0.98
+            },
+            {
+              y: 0,
+              opacity: 1,
+              scale: 1,
+              duration: 0.8,
+              ease: 'power3.out',
+              clearProps: 'transform,opacity',
+              scrollTrigger: {
+                trigger: bannerSectionEl,
+                start: 'top 82%',
+                once: true
+              }
+            }
+          );
+        }
+
+        // 5. FEATURED SOLUTIONS (3D ORBIT) HEADER
+        const orbitSectionEl = document.getElementById('featured-solutions');
+        if (orbitSectionEl) {
+          const orbitTl = gsap.timeline({
+            scrollTrigger: {
+              trigger: orbitSectionEl,
+              start: 'top 85%',
+              once: true
+            }
+          });
+
+          orbitTl
+            .fromTo('.orbit-badge', 
+              { y: 15, opacity: 0 }, 
+              { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out', clearProps: 'transform,opacity' }
+            )
+            .fromTo('.orbit-main-heading', 
+              { y: 40, opacity: 0 }, 
+              { y: 0, opacity: 1, duration: 0.75, ease: 'power3.out', clearProps: 'transform,opacity' }, 
+              '-=0.3'
+            )
+            .fromTo('.orbit-guide-ellipse-svg', 
+              { opacity: 0, scale: 0.97 }, 
+              { opacity: 1, scale: 1, duration: 0.7, ease: 'power2.out', clearProps: 'opacity,transform' }, 
+              '-=0.4'
+            );
+        }
+
+        // 6. WHY BEEMAAA.COM SECTION CHOREOGRAPHY
+        const whyBeemaSection = document.getElementById('why-beema');
+        if (whyBeemaSection) {
+          const whyTl = gsap.timeline({
+            scrollTrigger: {
+              trigger: whyBeemaSection,
+              start: 'top 80%',
+              once: true
+            }
+          });
+
+          whyTl
+            .fromTo('.why-beema-glass-card', 
+              { y: 35, opacity: 0 }, 
+              { y: 0, opacity: 1, duration: 0.7, ease: 'power3.out', clearProps: 'transform,opacity' }
+            )
+            .fromTo('.why-eyebrow-badge', 
+              { y: 15, opacity: 0 }, 
+              { y: 0, opacity: 1, duration: 0.45, ease: 'power2.out', clearProps: 'transform,opacity' }, 
+              '-=0.45'
+            )
+            .fromTo('.why-mob-img', 
+              { 
+                y: 45, 
+                scale: 0.96, 
+                opacity: 0,
+                clipPath: 'inset(10% 0 0 0)' 
+              }, 
+              { 
+                y: 0, 
+                scale: 1, 
+                opacity: 1, 
+                clipPath: 'inset(0% 0 0 0)', 
+                duration: 0.9, 
+                ease: 'power3.out',
+                clearProps: 'clipPath'
+              }, 
+              '-=0.35'
+            )
+            .fromTo('.why-main-title', 
+              { y: 45, opacity: 0 }, 
+              { y: 0, opacity: 1, duration: 0.75, ease: 'power3.out', clearProps: 'transform,opacity' }, 
+              '-=0.75'
+            )
+            .fromTo('.why-quote-card', 
+              { y: 30, opacity: 0 }, 
+              { y: 0, opacity: 1, duration: 0.65, ease: 'power3.out', clearProps: 'transform,opacity' }, 
+              '-=0.55'
+            )
+            .fromTo('.why-body-desc', 
+              { y: 25, opacity: 0 }, 
+              { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out', clearProps: 'transform,opacity' }, 
+              '-=0.45'
+            )
+            .fromTo('.why-benefit-card', 
+              { y: 35, opacity: 0, scale: 0.97 }, 
+              { y: 0, opacity: 1, scale: 1, duration: 0.7, ease: 'power3.out', stagger: 0.08, clearProps: 'transform,opacity' }, 
+              '-=0.4'
+            );
+        }
+
+        // 7. BEEMAAA MOBILE APP EXPERIENCE SECTION
+        const appSection = document.getElementById('app');
+        if (appSection) {
+          const appTl = gsap.timeline({
+            scrollTrigger: {
+              trigger: appSection,
+              start: 'top 80%',
+              once: true
+            }
+          });
+
+          appTl
+            .fromTo('.mobile-app-glass-card', 
+              { y: 35, opacity: 0 }, 
+              { y: 0, opacity: 1, duration: 0.7, ease: 'power3.out', clearProps: 'transform,opacity' }
+            )
+            .fromTo('.app-eyebrow-badge', 
+              { y: 15, opacity: 0 }, 
+              { y: 0, opacity: 1, duration: 0.45, ease: 'power2.out', clearProps: 'transform,opacity' }, 
+              '-=0.45'
+            )
+            .fromTo('.app-main-title', 
+              { y: 45, opacity: 0 }, 
+              { y: 0, opacity: 1, duration: 0.75, ease: 'power3.out', clearProps: 'transform,opacity' }, 
+              '-=0.35'
+            )
+            .fromTo('.app-subtitle', 
+              { y: 25, opacity: 0 }, 
+              { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out', clearProps: 'transform,opacity' }, 
+              '-=0.45'
+            )
+            .fromTo('.app-features-list li', 
+              { x: -18, y: 12, opacity: 0 }, 
+              { x: 0, y: 0, opacity: 1, duration: 0.6, ease: 'power2.out', stagger: 0.06, clearProps: 'transform,opacity' }, 
+              '-=0.4'
+            )
+            .fromTo('.app-store-btns-row a', 
+              { y: 20, scale: 0.96, opacity: 0 }, 
+              { y: 0, scale: 1, opacity: 1, duration: 0.55, ease: 'back.out(1.4)', stagger: 0.08, clearProps: 'transform,opacity' }, 
+              '-=0.3'
+            )
+            .fromTo('.app-showcase-img', 
+              { 
+                y: 50, 
+                scale: 0.96, 
+                opacity: 0, 
+                clipPath: 'inset(10% 0 0 0)' 
+              }, 
+              { 
+                y: 0, 
+                scale: 1, 
+                opacity: 1, 
+                clipPath: 'inset(0% 0 0 0)', 
+                duration: 0.95, 
+                ease: 'power3.out',
+                clearProps: 'clipPath'
+              }, 
+              '-=0.7'
+            );
+        }
+
+        // 8. HONORS & RECOGNITIONS AWARDS SHOWCASE
+        const awardsSection = document.getElementById('awards');
+        if (awardsSection) {
+          const awardsTl = gsap.timeline({
+            scrollTrigger: {
+              trigger: awardsSection,
+              start: 'top 80%',
+              once: true
+            }
+          });
+
+          awardsTl
+            .fromTo('.awards-header-wrap', 
+              { y: 25, opacity: 0 }, 
+              { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out', clearProps: 'transform,opacity' }
+            )
+            .fromTo('.awards-single-stage', 
+              { y: 35, opacity: 0 }, 
+              { y: 0, opacity: 1, duration: 0.75, ease: 'power3.out', clearProps: 'transform,opacity' }, 
+              '-=0.4'
+            )
+            .fromTo('.award-single-card.active .award-img-stage img', 
+              { 
+                y: 25, 
+                scale: 0.97, 
+                clipPath: 'inset(8% 0 0 0)' 
+              }, 
+              { 
+                y: 0, 
+                scale: 1, 
+                clipPath: 'inset(0% 0 0 0)', 
+                duration: 0.8, 
+                ease: 'power3.out',
+                clearProps: 'clipPath'
+              }, 
+              '-=0.5'
+            )
+            .fromTo(['.award-single-card.active .award-item-title', '.award-single-card.active .award-item-desc'], 
+              { y: 20, opacity: 0 }, 
+              { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out', stagger: 0.08, clearProps: 'transform,opacity' }, 
+              '-=0.55'
+            );
+        }
+
+        // 9. GUIDING PRINCIPLES (Vision, Mission & Core Values Bento Grid)
+        const vmSection = document.getElementById('vision-mission');
+        if (vmSection) {
+          const vmTl = gsap.timeline({
+            scrollTrigger: {
+              trigger: vmSection,
+              start: 'top 80%',
+              once: true
+            }
+          });
+
+          vmTl
+            .fromTo(['.vm-pill-badge', '.vm-section-title'], 
+              { y: 40, opacity: 0 }, 
+              { y: 0, opacity: 1, duration: 0.75, ease: 'power3.out', stagger: 0.06, clearProps: 'transform,opacity' }
+            )
+            .fromTo('.vision-bento', 
+              { y: 45, scale: 0.97, opacity: 0 }, 
+              { y: 0, scale: 1, opacity: 1, duration: 0.75, ease: 'power3.out', clearProps: 'transform,opacity' }, 
+              '-=0.4'
+            )
+            .fromTo('.mission-bento', 
+              { y: 45, scale: 0.97, opacity: 0 }, 
+              { y: 0, scale: 1, opacity: 1, duration: 0.75, ease: 'power3.out', clearProps: 'transform,opacity' }, 
+              '-=0.65'
+            )
+            .fromTo('.values-bento-header', 
+              { y: 20, opacity: 0 }, 
+              { y: 0, opacity: 1, duration: 0.55, ease: 'power2.out', clearProps: 'transform,opacity' }, 
+              '-=0.3'
+            )
+            .fromTo('.value-bento-item', 
+              { y: 35, scale: 0.97, opacity: 0 }, 
+              { y: 0, scale: 1, opacity: 1, duration: 0.65, ease: 'power3.out', stagger: 0.06, clearProps: 'transform,opacity' }, 
+              '-=0.4'
+            );
+        }
+
+        // 10. OUR BUSINESS PARTNERS SECTION
+        const partnersSection = document.getElementById('partners');
+        if (partnersSection) {
+          const partnersTl = gsap.timeline({
+            scrollTrigger: {
+              trigger: partnersSection,
+              start: 'top 80%',
+              once: true
+            }
+          });
+
+          partnersTl
+            .fromTo(['.partners-badge', '.partners-main-title', '.partners-sub-title'], 
+              { y: 35, opacity: 0 }, 
+              { y: 0, opacity: 1, duration: 0.7, ease: 'power3.out', stagger: 0.07, clearProps: 'transform,opacity' }
+            )
+            .fromTo('.partner-box', 
+              { y: 25, scale: 0.94, opacity: 0 }, 
+              { 
+                y: 0, 
+                scale: 1, 
+                opacity: 1, 
+                duration: 0.55, 
+                ease: 'power2.out', 
+                stagger: {
+                  each: 0.025,
+                  from: 'start',
+                  grid: 'auto'
+                },
+                clearProps: 'transform,opacity'
+              }, 
+              '-=0.4'
+            );
+        }
+
+        // 11. MODERN MINIMAL PROFESSIONAL FOOTER CHOREOGRAPHY
+        const footerSection = document.getElementById('site-footer');
+        if (footerSection) {
+          const footerTl = gsap.timeline({
+            scrollTrigger: {
+              trigger: footerSection,
+              start: 'top 88%',
+              once: true
+            }
+          });
+
+          footerTl
+            .fromTo('.footer-top-wrap', 
+              { y: 25, opacity: 0 }, 
+              { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out', clearProps: 'transform,opacity' }
+            )
+            .fromTo('.footer-nav-col', 
+              { y: 30, opacity: 0 }, 
+              { y: 0, opacity: 1, duration: 0.65, ease: 'power3.out', stagger: 0.05, clearProps: 'transform,opacity' }, 
+              '-=0.4'
+            )
+            .fromTo('.comm-block', 
+              { y: 25, opacity: 0 }, 
+              { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out', stagger: 0.06, clearProps: 'transform,opacity' }, 
+              '-=0.3'
+            )
+            .fromTo('.footer-legal-wrap', 
+              { y: 12, opacity: 0 }, 
+              { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out', clearProps: 'transform,opacity' }, 
+              '-=0.2'
+            );
+        }
+
+      },
+
+      // ========================================================================
+      // B. MOBILE PHONE PROFILE (max-width: 768px) - Compact & High-Performance
+      // ========================================================================
+      '(max-width: 768px)': function() {
+        
+        // 1. Mobile Hero Intro (Instant settle)
+        const heroCard = document.querySelector('.hero-card');
+        if (heroCard) {
+          gsap.fromTo('.navbar', 
+            { y: -10, opacity: 0.8 }, 
+            { y: 0, opacity: 1, duration: 0.35, clearProps: 'all' }
+          );
+          gsap.fromTo('.hero-pitch-text', 
+            { opacity: 0.6, y: 6 }, 
+            { opacity: 1, y: 0, duration: 0.35, clearProps: 'all' }
+          );
+          gsap.fromTo('.hero-main-title', 
+            { opacity: 0.7, y: 8 }, 
+            { opacity: 1, y: 0, duration: 0.4, clearProps: 'all' }
+          );
+          gsap.fromTo('.hero-book-visit-btn', 
+            { opacity: 0.8, scale: 0.98 }, 
+            { opacity: 1, scale: 1, duration: 0.35, clearProps: 'all' }
+          );
+        }
+
+        // 2. Mobile Insurance Services Grid
+        const servicesSection = document.querySelector('.insurance-services-section');
+        if (servicesSection) {
+          gsap.fromTo('.service-card-item', 
+            { y: 20, opacity: 0, scale: 0.98 }, 
+            { 
+              y: 0, 
+              opacity: 1, 
+              scale: 1, 
+              duration: 0.5, 
+              ease: 'power2.out', 
+              stagger: 0.025, 
+              clearProps: 'transform,opacity',
+              scrollTrigger: {
+                trigger: servicesSection,
+                start: 'top 85%',
+                once: true
+              }
+            }
+          );
+        }
+
+        // 3. Mobile Trust Header
+        const trustSectionEl = document.getElementById('trust-milestones');
+        if (trustSectionEl) {
+          gsap.fromTo(['.trust-badge', '.trust-main-heading', '.trust-sub-heading', '.trust-mobile-pills', '.trust-controls-group'], 
+            { y: 20, opacity: 0 }, 
+            { 
+              y: 0, 
+              opacity: 1, 
+              duration: 0.55, 
+              stagger: 0.05, 
+              ease: 'power2.out', 
+              clearProps: 'transform,opacity',
+              scrollTrigger: {
+                trigger: trustSectionEl,
+                start: 'top 85%',
+                once: true
+              }
+            }
+          );
+        }
+
+        // 4. Mobile GSAP Banner Stage Entrance
+        const bannerSectionEl = document.getElementById('gsapPromoBanner');
+        if (bannerSectionEl) {
+          gsap.fromTo('.gsap-banner-stage', 
+            { y: 25, opacity: 0, scale: 0.98 }, 
+            { 
+              y: 0, 
+              opacity: 1, 
+              scale: 1, 
+              duration: 0.6, 
+              ease: 'power2.out', 
+              clearProps: 'transform,opacity',
+              scrollTrigger: {
+                trigger: bannerSectionEl,
+                start: 'top 85%',
+                once: true
+              }
+            }
+          );
+        }
+
+        // 5. Mobile Featured Solutions Orbit Header
+        const orbitSectionEl = document.getElementById('featured-solutions');
+        if (orbitSectionEl) {
+          gsap.fromTo(['.orbit-badge', '.orbit-main-heading'], 
+            { y: 20, opacity: 0 }, 
+            { 
+              y: 0, 
+              opacity: 1, 
+              duration: 0.55, 
+              stagger: 0.06, 
+              ease: 'power2.out', 
+              clearProps: 'transform,opacity',
+              scrollTrigger: {
+                trigger: orbitSectionEl,
+                start: 'top 85%',
+                once: true
+              }
+            }
+          );
+        }
+
+        // 6. Mobile Why Beema Section
+        const whyBeemaSection = document.getElementById('why-beema');
+        if (whyBeemaSection) {
+          const whyTl = gsap.timeline({
+            scrollTrigger: {
+              trigger: whyBeemaSection,
+              start: 'top 82%',
+              once: true
+            }
+          });
+
+          whyTl
+            .fromTo('.why-beema-glass-card', 
+              { y: 20, opacity: 0 }, 
+              { y: 0, opacity: 1, duration: 0.55, ease: 'power2.out', clearProps: 'transform,opacity' }
+            )
+            .fromTo('.why-mob-img', 
+              { y: 25, opacity: 0, scale: 0.98 }, 
+              { y: 0, opacity: 1, scale: 1, duration: 0.65, ease: 'power2.out', clearProps: 'transform,opacity' }, 
+              '-=0.3'
+            )
+            .fromTo(['.why-main-title', '.why-quote-card', '.why-body-desc'], 
+              { y: 20, opacity: 0 }, 
+              { y: 0, opacity: 1, duration: 0.5, stagger: 0.05, ease: 'power2.out', clearProps: 'transform,opacity' }, 
+              '-=0.35'
+            )
+            .fromTo('.why-benefit-card', 
+              { y: 20, opacity: 0 }, 
+              { y: 0, opacity: 1, duration: 0.5, stagger: 0.05, ease: 'power2.out', clearProps: 'transform,opacity' }, 
+              '-=0.3'
+            );
+        }
+
+        // 7. Mobile App Experience Section
+        const appSection = document.getElementById('app');
+        if (appSection) {
+          const appTl = gsap.timeline({
+            scrollTrigger: {
+              trigger: appSection,
+              start: 'top 82%',
+              once: true
+            }
+          });
+
+          appTl
+            .fromTo('.mobile-app-glass-card', 
+              { y: 20, opacity: 0 }, 
+              { y: 0, opacity: 1, duration: 0.55, ease: 'power2.out', clearProps: 'transform,opacity' }
+            )
+            .fromTo(['.app-eyebrow-badge', '.app-main-title', '.app-subtitle'], 
+              { y: 20, opacity: 0 }, 
+              { y: 0, opacity: 1, duration: 0.55, stagger: 0.05, ease: 'power2.out', clearProps: 'transform,opacity' }, 
+              '-=0.3'
+            )
+            .fromTo('.app-features-list li', 
+              { x: -12, opacity: 0 }, 
+              { x: 0, opacity: 1, duration: 0.45, stagger: 0.04, ease: 'power2.out', clearProps: 'transform,opacity' }, 
+              '-=0.35'
+            )
+            .fromTo('.app-store-btns-row a', 
+              { y: 12, opacity: 0 }, 
+              { y: 0, opacity: 1, duration: 0.45, stagger: 0.05, ease: 'back.out(1.4)', clearProps: 'transform,opacity' }, 
+              '-=0.25'
+            )
+            .fromTo('.app-showcase-img', 
+              { y: 25, opacity: 0, scale: 0.98 }, 
+              { y: 0, opacity: 1, scale: 1, duration: 0.65, ease: 'power2.out', clearProps: 'transform,opacity' }, 
+              '-=0.35'
+            );
+        }
+
+        // 8. Mobile Awards Showcase
+        const awardsSection = document.getElementById('awards');
+        if (awardsSection) {
+          gsap.fromTo(['.awards-header-wrap', '.awards-single-stage'], 
+            { y: 20, opacity: 0 }, 
+            { 
+              y: 0, 
+              opacity: 1, 
+              duration: 0.55, 
+              stagger: 0.06, 
+              ease: 'power2.out', 
+              clearProps: 'transform,opacity',
+              scrollTrigger: {
+                trigger: awardsSection,
+                start: 'top 85%',
+                once: true
+              }
+            }
+          );
+        }
+
+        // 9. Mobile Guiding Principles Bento Grid
+        const vmSection = document.getElementById('vision-mission');
+        if (vmSection) {
+          gsap.fromTo(['.vm-pill-badge', '.vm-section-title', '.vm-mobile-switcher', '.vm-bento-card', '.values-bento-header', '.value-bento-item'], 
+            { y: 20, opacity: 0 }, 
+            { 
+              y: 0, 
+              opacity: 1, 
+              duration: 0.55, 
+              stagger: 0.035, 
+              ease: 'power2.out', 
+              clearProps: 'transform,opacity',
+              scrollTrigger: {
+                trigger: vmSection,
+                start: 'top 85%',
+                once: true
+              }
+            }
+          );
+        }
+
+        // 10. Mobile Partners Section
+        const partnersSection = document.getElementById('partners');
+        if (partnersSection) {
+          gsap.fromTo(['.partners-badge', '.partners-main-title', '.partners-sub-title'], 
+            { y: 20, opacity: 0 }, 
+            { 
+              y: 0, 
+              opacity: 1, 
+              duration: 0.5, 
+              stagger: 0.05, 
+              ease: 'power2.out', 
+              clearProps: 'transform,opacity',
+              scrollTrigger: {
+                trigger: partnersSection,
+                start: 'top 85%',
+                once: true
+              }
+            }
+          );
+
+          gsap.fromTo('.partner-box', 
+            { y: 15, opacity: 0, scale: 0.96 }, 
+            { 
+              y: 0, 
+              opacity: 1, 
+              scale: 1, 
+              duration: 0.45, 
+              stagger: 0.02, 
+              ease: 'power2.out', 
+              clearProps: 'transform,opacity',
+              scrollTrigger: {
+                trigger: partnersSection,
+                start: 'top 85%',
+                once: true
+              }
+            }
+          );
+        }
+
+        // 11. Mobile Footer
+        const footerSection = document.getElementById('site-footer');
+        if (footerSection) {
+          gsap.fromTo(['.footer-top-wrap', '.footer-nav-col', '.comm-block', '.footer-legal-wrap'], 
+            { y: 15, opacity: 0 }, 
+            { 
+              y: 0, 
+              opacity: 1, 
+              duration: 0.45, 
+              stagger: 0.035, 
+              ease: 'power2.out', 
+              clearProps: 'transform,opacity',
+              scrollTrigger: {
+                trigger: footerSection,
+                start: 'top 90%',
+                once: true
+              }
+            }
+          );
+        }
+
+      }
+    });
+  };
+
+  // Launch the Scroll-Reveal Animation Engine
+  initScrollRevealSystem();
 
   // Final Global ScrollTrigger Synchronization & Layout Refresh
   if (typeof ScrollTrigger !== 'undefined') {
@@ -1122,3 +1901,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+

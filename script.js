@@ -590,22 +590,23 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     6. HERE'S WHY YOU CAN TRUST US — GSAP HORIZONTAL SCROLL & SVG PATH DRAWING (DOM SECTION 1)
+     6. HERE'S WHY YOU CAN TRUST US — GSAP HORIZONTAL SCROLL (DESKTOP) & SPATIAL STEPPER (MOBILE)
      ========================================================================== */
   const trustSection = document.getElementById('trust-milestones');
   const trustTrack = document.getElementById('trustTrack');
   const trustViewport = document.getElementById('trustViewport');
   const trustCards = document.querySelectorAll('.trust-card-item');
   const trustActivePath = document.getElementById('trustActivePath');
-  const trustPathBead = document.getElementById('trustPathBead');
   const trustCurrentStep = document.getElementById('trustCurrentStep');
   const trustProgressFill = document.getElementById('trustProgressFill');
   const trustPrevBtn = document.getElementById('trustPrevBtn');
   const trustNextBtn = document.getElementById('trustNextBtn');
+  const trustPills = document.querySelectorAll('.trust-pill-tab');
 
   if (trustSection && trustTrack && trustCards.length > 0) {
     let currentCardIdx = 0;
     const totalCards = trustCards.length;
+    let scrollToCard = null;
 
     // Stat Number Counter Animation Helper
     const animateStatCounter = (cardEl) => {
@@ -636,7 +637,7 @@ document.addEventListener('DOMContentLoaded', () => {
       requestAnimationFrame(updateCount);
     };
 
-    // Update active card & indicators
+    // Update active card, pill tabs, and step indicators
     const updateActiveStep = (idx) => {
       if (idx < 0) idx = 0;
       if (idx >= totalCards) idx = totalCards - 1;
@@ -657,7 +658,77 @@ document.addEventListener('DOMContentLoaded', () => {
           animateStatCounter(card);
         }
       });
+
+      trustPills.forEach((pill, i) => {
+        const isActive = (i === idx);
+        pill.classList.toggle('active', isActive);
+        if (isActive && typeof pill.scrollIntoView === 'function') {
+          try {
+            pill.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+          } catch (e) {}
+        }
+      });
     };
+
+    // Wire up Mobile Milestone Switcher Tabs
+    trustPills.forEach((pill, i) => {
+      pill.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (window.innerWidth <= 768 || !scrollToCard) {
+          updateActiveStep(i);
+        } else {
+          scrollToCard(i);
+        }
+      });
+    });
+
+    // Touch Swipe Gesture Navigation for Phone
+    if (trustViewport) {
+      let trustTouchStartX = 0;
+      let trustTouchEndX = 0;
+
+      trustViewport.addEventListener('touchstart', (e) => {
+        trustTouchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+
+      trustViewport.addEventListener('touchend', (e) => {
+        if (window.innerWidth > 768) return;
+        trustTouchEndX = e.changedTouches[0].screenX;
+        const diff = trustTouchEndX - trustTouchStartX;
+        if (Math.abs(diff) > 40) {
+          if (diff < 0) {
+            // Swipe left -> next milestone
+            updateActiveStep(currentCardIdx + 1);
+          } else {
+            // Swipe right -> prev milestone
+            updateActiveStep(currentCardIdx - 1);
+          }
+        }
+      }, { passive: true });
+    }
+
+    // Prev / Next Button Triggers
+    if (trustNextBtn) {
+      trustNextBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (window.innerWidth <= 768 || !scrollToCard) {
+          updateActiveStep(currentCardIdx + 1);
+        } else {
+          scrollToCard(Math.min(totalCards - 1, currentCardIdx + 1));
+        }
+      });
+    }
+
+    if (trustPrevBtn) {
+      trustPrevBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (window.innerWidth <= 768 || !scrollToCard) {
+          updateActiveStep(currentCardIdx - 1);
+        } else {
+          scrollToCard(Math.max(0, currentCardIdx - 1));
+        }
+      });
+    }
 
     // Initialize SVG Path length
     const getPathLength = () => {
@@ -677,122 +748,101 @@ document.addEventListener('DOMContentLoaded', () => {
       trustActivePath.style.strokeDashoffset = `${pathLength}px`;
     }
 
-    // Check if GSAP & ScrollTrigger are available
+    // Desktop GSAP Horizontal Scroll Setup with matchMedia
     if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
       gsap.registerPlugin(ScrollTrigger);
 
-      // Configure auto-refresh events
       ScrollTrigger.config({
         autoRefreshEvents: "visibilitychange,DOMContentLoaded,load,resize"
       });
 
-      const getScrollAmount = () => {
-        const trackWidth = trustTrack.scrollWidth;
-        const viewportWidth = trustViewport.clientWidth;
-        return Math.max(0, trackWidth - viewportWidth);
-      };
+      ScrollTrigger.matchMedia({
+        // Desktop Only (> 768px): Pinned Sinusoidal Path Drawing & Plane Flight
+        "(min-width: 769px)": function() {
+          const getScrollAmount = () => {
+            const trackWidth = trustTrack.scrollWidth;
+            const viewportWidth = trustViewport.clientWidth;
+            return Math.max(0, trackWidth - viewportWidth);
+          };
 
-      const getScrollDistance = () => {
-        return Math.min(1350, Math.max(1000, (totalCards - 1) * 320));
-      };
+          const getScrollDistance = () => {
+            return Math.min(1350, Math.max(1000, (totalCards - 1) * 320));
+          };
 
-      const svgCanvasWrapper = document.querySelector('.trust-svg-canvas-wrapper');
-      const planeCanvasWrapper = document.querySelector('.trust-plane-canvas-wrapper');
-      const tweenTargets = [trustTrack];
-      if (svgCanvasWrapper) tweenTargets.push(svgCanvasWrapper);
-      if (planeCanvasWrapper) tweenTargets.push(planeCanvasWrapper);
+          const svgCanvasWrapper = document.querySelector('.trust-svg-canvas-wrapper');
+          const planeCanvasWrapper = document.querySelector('.trust-plane-canvas-wrapper');
+          const tweenTargets = [trustTrack];
+          if (svgCanvasWrapper) tweenTargets.push(svgCanvasWrapper);
+          if (planeCanvasWrapper) tweenTargets.push(planeCanvasWrapper);
 
-      // Create strictly pinned horizontal scroll animation
-      const scrollTween = gsap.to(tweenTargets, {
-        x: () => -getScrollAmount(),
-        ease: "none",
-        scrollTrigger: {
-          trigger: trustSection,
-          pin: true,
-          pinSpacing: true,
-          anticipatePin: 1,
-          scrub: 1,
-          invalidateOnRefresh: true,
-          start: "top 70px",
-          end: () => `+=${getScrollDistance()}`,
-          onUpdate: (self) => {
-            const progress = self.progress || 0;
+          const scrollTween = gsap.to(tweenTargets, {
+            x: () => -getScrollAmount(),
+            ease: "none",
+            scrollTrigger: {
+              trigger: trustSection,
+              pin: true,
+              pinSpacing: true,
+              anticipatePin: 1,
+              scrub: 1,
+              invalidateOnRefresh: true,
+              start: "top 70px",
+              end: () => `+=${getScrollDistance()}`,
+              onUpdate: (self) => {
+                const progress = self.progress || 0;
 
-            // 1. Dynamic continuous SVG line drawing from Point 1 -> 2 -> 3 -> 4 -> 5
-            if (trustActivePath && pathLength) {
-              const currentOffset = pathLength * (1 - progress);
-              trustActivePath.style.strokeDashoffset = `${currentOffset}px`;
+                // 1. Dynamic continuous SVG line drawing
+                if (trustActivePath && pathLength) {
+                  const currentOffset = pathLength * (1 - progress);
+                  trustActivePath.style.strokeDashoffset = `${currentOffset}px`;
+                }
+
+                // 2. Position and orient animated Plane.svg along the tip of the line
+                const trustPlaneLeader = document.getElementById('trustPlaneLeader');
+                if (trustPlaneLeader && trustActivePath && pathLength) {
+                  try {
+                    const currentDist = progress * pathLength;
+                    const p = trustActivePath.getPointAtLength(currentDist);
+                    const pNext = trustActivePath.getPointAtLength(Math.min(pathLength, currentDist + 6));
+                    const angleDeg = Math.atan2(pNext.y - p.y, pNext.x - p.x) * (180 / Math.PI);
+                    trustPlaneLeader.setAttribute('transform', `translate(${p.x}, ${p.y}) rotate(${angleDeg})`);
+                  } catch (e) {}
+                }
+
+                // 3. Update active card & indicators
+                const cardIndex = Math.min(totalCards - 1, Math.floor(progress * totalCards + 0.05));
+                updateActiveStep(cardIndex);
+              }
             }
+          });
 
-            // 2. Position and orient animated Plane.svg along the tip of the drawing line
-            const trustPlaneLeader = document.getElementById('trustPlaneLeader');
-            if (trustPlaneLeader && trustActivePath && pathLength) {
-              try {
-                const currentDist = progress * pathLength;
-                const p = trustActivePath.getPointAtLength(currentDist);
-                const pNext = trustActivePath.getPointAtLength(Math.min(pathLength, currentDist + 6));
-                const angleDeg = Math.atan2(pNext.y - p.y, pNext.x - p.x) * (180 / Math.PI);
-                trustPlaneLeader.setAttribute('transform', `translate(${p.x}, ${p.y}) rotate(${angleDeg})`);
-              } catch (e) {}
-            }
+          scrollToCard = (index) => {
+            if (!scrollTween || !scrollTween.scrollTrigger) return;
+            const st = scrollTween.scrollTrigger;
+            const targetProgress = index / (totalCards - 1);
+            const targetScroll = st.start + (st.end - st.start) * targetProgress;
+            window.scrollTo({
+              top: targetScroll,
+              behavior: 'smooth'
+            });
+          };
 
-            // 3. Update active card & indicators
-            const cardIndex = Math.min(totalCards - 1, Math.floor(progress * totalCards + 0.05));
-            updateActiveStep(cardIndex);
-          }
+          trustCards.forEach((card, i) => {
+            card.addEventListener('click', () => {
+              scrollToCard(i);
+            });
+          });
+        },
+
+        // Mobile Only (<= 768px): Unpinned, zero horizontal scroll
+        "(max-width: 768px)": function() {
+          scrollToCard = null;
+          updateActiveStep(0);
         }
       });
-
-      // Smooth programmatic scroll to a specific milestone card
-      const scrollToCard = (index) => {
-        if (!scrollTween || !scrollTween.scrollTrigger) return;
-        const st = scrollTween.scrollTrigger;
-        const targetProgress = index / (totalCards - 1);
-        const targetScroll = st.start + (st.end - st.start) * targetProgress;
-        window.scrollTo({
-          top: targetScroll,
-          behavior: 'smooth'
-        });
-      };
-
-      if (trustNextBtn) {
-        trustNextBtn.addEventListener('click', (e) => {
-          e.preventDefault();
-          scrollToCard(Math.min(totalCards - 1, currentCardIdx + 1));
-        });
-      }
-
-      if (trustPrevBtn) {
-        trustPrevBtn.addEventListener('click', (e) => {
-          e.preventDefault();
-          scrollToCard(Math.max(0, currentCardIdx - 1));
-        });
-      }
-
-      trustCards.forEach((card, i) => {
-        card.addEventListener('click', () => {
-          scrollToCard(i);
-        });
-      });
-
-    } else {
-      // Fallback if GSAP is not loaded
-      trustCards.forEach((card, i) => {
-        card.addEventListener('click', () => {
-          updateActiveStep(i);
-        });
-      });
-      if (trustNextBtn) {
-        trustNextBtn.addEventListener('click', () => {
-          updateActiveStep(Math.min(totalCards - 1, currentCardIdx + 1));
-        });
-      }
-      if (trustPrevBtn) {
-        trustPrevBtn.addEventListener('click', () => {
-          updateActiveStep(Math.max(0, currentCardIdx - 1));
-        });
-      }
     }
+
+    // Set initial active milestone
+    updateActiveStep(0);
   }
 
   /* ==========================================================================

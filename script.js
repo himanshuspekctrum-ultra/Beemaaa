@@ -965,7 +965,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const updateTextStream = (targetIndex) => {
       if (!textStreamTrack || textStreamItems.length === 0) return;
-      const itemHeight = textStreamItems[0].offsetHeight || (window.innerWidth <= 768 ? 150 : 220);
+      const itemHeight = textStreamItems[0].offsetHeight || (window.innerWidth <= 768 ? 75 : 220);
       textStreamTrack.style.transform = `translate3d(0, -${targetIndex * itemHeight}px, 0)`;
 
       textStreamItems.forEach((item, idx) => {

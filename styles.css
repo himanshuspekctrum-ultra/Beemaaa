@@ -3403,29 +3403,7 @@ a[href="#login"].nav-link:hover {
     box-shadow: 0 16px 36px rgba(15, 23, 42, 0.2), 0 0 0 2px #afa40e !important;
   }
   .orbit-text-stream-wrapper {
-    position: relative;
-    left: auto;
-    top: auto;
-    transform: none;
-    width: 100%;
-    max-width: 440px;
-    height: 150px;
-    margin: 14px auto 0 auto;
-    text-align: center;
-  }
-  .orbit-stream-item {
-    height: 150px;
-    align-items: center;
-  }
-  .orbit-stream-tag {
-    justify-content: center;
-    font-size: 0.76rem;
-  }
-  .orbit-stream-title {
-    font-size: 1.30rem;
-  }
-  .orbit-stream-desc {
-    font-size: 0.90rem;
+    display: none !important;
   }
 }
 
@@ -5825,12 +5803,22 @@ a[href="#login"].nav-link:hover {
   .hero-bottom-headline {
     flex-direction: column;
     align-items: flex-start;
-    gap: 20px;
+    gap: 14px;
   }
 
   .hero-book-visit-btn {
-    width: 100%;
-    min-height: 44px;
+    width: auto !important;
+    max-width: max-content !important;
+    height: 32px !important;
+    min-height: 32px !important;
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+    font-size: 0.64rem !important;
+    letter-spacing: 0.8px !important;
+    line-height: 32px !important;
+    -webkit-clip-path: polygon(0 0, 0 0, 100% 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 100%) !important;
+    clip-path: polygon(0 0, 0 0, 100% 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 100%) !important;
+    margin-bottom: 2px;
   }
 
   /* Services Grid */

@@ -960,22 +960,35 @@ document.addEventListener('DOMContentLoaded', () => {
     let isMobileSwiping = false;
     let mobileTouchStartX = 0;
     let mobileRotationOffset = 0;
+    const textStreamTrack = document.getElementById('orbitTextStreamTrack');
+    const textStreamItems = document.querySelectorAll('.orbit-stream-item');
+
+    const updateTextStream = (targetIndex) => {
+      if (!textStreamTrack || textStreamItems.length === 0) return;
+      const itemHeight = textStreamItems[0].offsetHeight || (window.innerWidth <= 768 ? 150 : 220);
+      textStreamTrack.style.transform = `translate3d(0, -${targetIndex * itemHeight}px, 0)`;
+
+      textStreamItems.forEach((item, idx) => {
+        item.classList.toggle('active', idx === targetIndex);
+      });
+    };
 
     const updateOrbitPositions = (rawProgress) => {
       const progress = Math.min(1, Math.max(0, rawProgress || 0));
       const isMobile = window.innerWidth <= 768;
       const isTablet = window.innerWidth < 1024 && !isMobile;
+      const rotationSpan = ((totalOrbitCards - 1) / totalOrbitCards) * (Math.PI * 2);
 
       let maxFocal = -999;
 
       if (isMobile) {
-        // PHONE-FIRST 3D CYLINDER PERSPECTIVE (Natural, Compact & Fluid)
+        // PHONE-FIRST 3D CYLINDER PERSPECTIVE (Sequentially displays Card 1 through Card 8)
         const rxMobile = Math.min(window.innerWidth * 0.38, 140);
         const arcLimit = 1.85;
-        const totalRotation = (progress * Math.PI * 1.5) + mobileRotationOffset;
+        const totalRotation = (progress * rotationSpan) + mobileRotationOffset;
 
         orbitCards.forEach((card, i) => {
-          const baseAngle = (i / totalOrbitCards) * Math.PI * 2;
+          const baseAngle = -(i / totalOrbitCards) * Math.PI * 2;
           const rawAngle = baseAngle + totalRotation;
 
           let angle = ((rawAngle % (Math.PI * 2)) + (Math.PI * 2)) % (Math.PI * 2);
@@ -1006,7 +1019,8 @@ document.addEventListener('DOMContentLoaded', () => {
               closestCardIndex = i;
             }
 
-            const scale = 0.82 + 0.28 * Math.pow(proximityFactor, 1.2);
+            // Mobile: extra large middle focal card (1.35x), recessed side cards with 3D depth separation
+            const scale = 0.40 + 0.95 * Math.pow(proximityFactor, 2.0);
             const opacity = Math.min(1, Math.max(0, proximityFactor * 1.9));
             const zIndex = Math.round(100 + proximityFactor * 500);
 
@@ -1018,19 +1032,19 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         });
       } else {
-        // DESKTOP & TABLET EXPANSIVE 3D ARC WHEEL (Left-to-Right layout)
-        const totalRotation = progress * (Math.PI * 0.5);
+        // DESKTOP & TABLET EXPANSIVE 3D ARC WHEEL (Sequentially displays Card 1 through Card 8)
+        const totalRotation = progress * rotationSpan;
         const cardHalfW = isTablet ? 38 : 48;
         const leftBoundary = -(window.innerWidth * 0.5) + cardHalfW + (isTablet ? 16 : 24);
 
         const rx = Math.abs(leftBoundary);
         const cx = -rx;
         const cy = 0;
-        const ry = isTablet ? 220 : 280;
+        const ry = isTablet ? 290 : 360;
         const arcLimit = 1.80;
 
         orbitCards.forEach((card, i) => {
-          const baseAngle = (i / totalOrbitCards) * Math.PI * 2;
+          const baseAngle = -(i / totalOrbitCards) * Math.PI * 2;
           const rawAngle = baseAngle + totalRotation;
 
           let angle = ((rawAngle % (Math.PI * 2)) + (Math.PI * 2)) % (Math.PI * 2);
@@ -1048,18 +1062,21 @@ document.addEventListener('DOMContentLoaded', () => {
             card.style.visibility = 'visible';
             card.style.pointerEvents = 'auto';
 
-            const x = cx + rx * Math.cos(angle);
-            const y = cy + ry * Math.sin(angle);
-
             const proximityFactor = Math.max(0, 1 - (absAngle / arcLimit));
             const focalFactor = Math.max(0, Math.cos(angle));
+
+            // Clearance offset to keep adjacent cards comfortably separated from the large middle card
+            const clearanceX = (1 - focalFactor) * -85;
+            const x = cx + rx * Math.cos(angle) + clearanceX;
+            const y = cy + ry * Math.sin(angle);
 
             if (focalFactor > maxFocal) {
               maxFocal = focalFactor;
               closestCardIndex = i;
             }
 
-            const scale = 0.35 + 0.95 * Math.pow(proximityFactor, 1.35);
+            // Desktop: extra large middle focal card (1.80x) with steep drop-off to avoid touching adjacent cards
+            const scale = 0.18 + 1.62 * Math.pow(proximityFactor, 2.2);
             const opacity = Math.min(1, Math.max(0, proximityFactor * 1.55));
             const zIndex = Math.round(100 + proximityFactor * 500);
 
@@ -1071,6 +1088,9 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         });
       }
+
+      // Update dynamic free text vertical stream for the focal card
+      updateTextStream(closestCardIndex);
 
       // Update indicator pills if present
       if (orbitPills.length > 0) {
@@ -1098,7 +1118,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const currentX = e.touches[0].clientX;
           const deltaX = currentX - mobileTouchStartX;
           mobileTouchStartX = currentX;
-          mobileRotationOffset -= deltaX * 0.005;
+          mobileRotationOffset += deltaX * 0.005;
           updateOrbitPositions(0);
         }
       }, { passive: true });
@@ -1113,7 +1133,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ScrollTrigger.matchMedia({
         // Desktop (> 768px): Pinned 3D Arc Wheel
         "(min-width: 769px)": function() {
-          const orbitRotationDist = 1000;
+          const orbitRotationDist = 1600;
           const desktopTrigger = ScrollTrigger.create({
             trigger: orbitSection,
             start: "top 70px",

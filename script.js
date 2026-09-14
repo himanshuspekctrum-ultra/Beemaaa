@@ -326,6 +326,121 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  /* ==========================================================================
+     1.1 HERO AUTO-SWIPER (3 Cards, Changes Every 3s with Gradient Blobs)
+     ========================================================================== */
+  const heroSwiperContainer = document.getElementById('heroSwiperContainer');
+  if (heroSwiperContainer) {
+    const heroCards = heroSwiperContainer.querySelectorAll('.hero-swiper-card');
+    const heroDots = heroSwiperContainer.querySelectorAll('.hero-swiper-dot');
+    let heroCurrentIdx = 0;
+    const totalHeroCards = heroCards.length;
+    let heroTimer = null;
+    const HERO_INTERVAL = 3000; // 3 seconds
+
+    const showHeroCard = (idx) => {
+      heroCurrentIdx = (idx + totalHeroCards) % totalHeroCards;
+
+      heroCards.forEach((card, i) => {
+        const isActive = (i === heroCurrentIdx);
+        card.classList.toggle('active', isActive);
+      });
+
+      heroDots.forEach((dot, i) => {
+        const isActive = (i === heroCurrentIdx);
+        dot.classList.toggle('active', isActive);
+        const progress = dot.querySelector('.dot-progress');
+        if (progress) {
+          progress.style.transition = 'none';
+          progress.style.width = '0%';
+          if (isActive) {
+            void progress.offsetWidth; // force reflow
+            progress.style.transition = 'width ' + HERO_INTERVAL + 'ms linear';
+            progress.style.width = '100%';
+          }
+        }
+      });
+    };
+
+    const nextHeroCard = () => {
+      showHeroCard(heroCurrentIdx + 1);
+    };
+
+    const prevHeroCard = () => {
+      showHeroCard(heroCurrentIdx - 1);
+    };
+
+    const startHeroTimer = () => {
+      stopHeroTimer();
+      showHeroCard(heroCurrentIdx);
+      heroTimer = setInterval(nextHeroCard, HERO_INTERVAL);
+    };
+
+    const stopHeroTimer = () => {
+      if (heroTimer) {
+        clearInterval(heroTimer);
+        heroTimer = null;
+      }
+      const activeDot = heroSwiperContainer.querySelector('.hero-swiper-dot.active .dot-progress');
+      if (activeDot) {
+        activeDot.style.transition = 'none';
+      }
+    };
+
+    // Pause timer on hover, resume on mouse leave
+    heroSwiperContainer.addEventListener('mouseenter', stopHeroTimer);
+    heroSwiperContainer.addEventListener('mouseleave', startHeroTimer);
+
+    // Click dot navigation
+    heroDots.forEach((dot, idx) => {
+      dot.addEventListener('click', (e) => {
+        e.stopPropagation();
+        stopHeroTimer();
+        showHeroCard(idx);
+        startHeroTimer();
+      });
+    });
+
+    // Touch Swipe Gesture Navigation
+    let heroTouchStartX = 0;
+    let heroTouchStartY = 0;
+
+    heroSwiperContainer.addEventListener('touchstart', (e) => {
+      if (e.touches && e.touches.length > 0) {
+        heroTouchStartX = e.touches[0].clientX;
+        heroTouchStartY = e.touches[0].clientY;
+      }
+      stopHeroTimer();
+    }, { passive: true });
+
+    heroSwiperContainer.addEventListener('touchend', (e) => {
+      if (e.changedTouches && e.changedTouches.length > 0) {
+        const diffX = e.changedTouches[0].clientX - heroTouchStartX;
+        const diffY = e.changedTouches[0].clientY - heroTouchStartY;
+        if (Math.abs(diffX) > 35 && Math.abs(diffX) > Math.abs(diffY)) {
+          if (diffX < 0) {
+            nextHeroCard();
+          } else {
+            prevHeroCard();
+          }
+        }
+      }
+      startHeroTimer();
+    }, { passive: true });
+
+    // Page visibility awareness
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        stopHeroTimer();
+      } else {
+        startHeroTimer();
+      }
+    });
+
+    // Start auto-play
+    startHeroTimer();
+  }
+
   // 2. Partner Network Dynamic Tabs
   const tabItems = document.querySelectorAll('.tab-pill-item');
   const networkDesc = document.getElementById('networkDesc');
@@ -850,19 +965,135 @@ document.addEventListener('DOMContentLoaded', () => {
       trustPills.forEach((pill, i) => {
         const isActive = (i === idx);
         pill.classList.toggle('active', isActive);
-        if (isActive && typeof pill.scrollIntoView === 'function') {
-          try {
-            pill.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-          } catch (e) {}
-        }
       });
+
+      // Smoothly center the active pill tab within the mobile switcher track without page jumping
+      const trustMobilePillsTrack = document.getElementById('trustMobilePills');
+      if (trustMobilePillsTrack && trustPills[idx]) {
+        const activePill = trustPills[idx];
+        const pillLeft = activePill.offsetLeft;
+        const pillWidth = activePill.offsetWidth;
+        const trackWidth = trustMobilePillsTrack.clientWidth;
+        trustMobilePillsTrack.scrollTo({
+          left: Math.max(0, pillLeft - (trackWidth / 2) + (pillWidth / 2)),
+          behavior: 'smooth'
+        });
+      }
     };
+
+    // --------------------------------------------------------------------------
+    // Auto-advance every 3 seconds on Phone (Mobile <= 768px)
+    // --------------------------------------------------------------------------
+    let trustAutoAdvanceTimer = null;
+    let isTrustSectionInView = true;
+
+    const isPhoneViewport = () => {
+      return (window.innerWidth <= 768) || (window.matchMedia && window.matchMedia('(max-width: 768px)').matches);
+    };
+
+    const isSectionVisibleInViewport = () => {
+      if (!trustSection) return false;
+      const rect = trustSection.getBoundingClientRect();
+      const winH = window.innerHeight || document.documentElement.clientHeight || 800;
+      return (rect.top < winH) && (rect.bottom > 0);
+    };
+
+    const isTrustVisible = () => {
+      return isTrustSectionInView && isSectionVisibleInViewport();
+    };
+
+    const autoAdvanceNext = () => {
+      if (!isPhoneViewport() || document.hidden) return;
+      if (isTrustVisible()) {
+        const nextIdx = (currentCardIdx + 1) % totalCards;
+        updateActiveStep(nextIdx);
+      }
+    };
+
+    const startAutoAdvance = () => {
+      stopAutoAdvance();
+      if (isPhoneViewport()) {
+        trustAutoAdvanceTimer = setInterval(autoAdvanceNext, 3000);
+      }
+    };
+
+    const stopAutoAdvance = () => {
+      if (trustAutoAdvanceTimer) {
+        clearInterval(trustAutoAdvanceTimer);
+        trustAutoAdvanceTimer = null;
+      }
+    };
+
+    const resetAutoAdvance = () => {
+      stopAutoAdvance();
+      if (isPhoneViewport()) {
+        startAutoAdvance();
+      }
+    };
+
+    // IntersectionObserver to auto-advance when section enters viewport
+    if ('IntersectionObserver' in window) {
+      const trustSectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          isTrustSectionInView = entry.isIntersecting;
+          if (isTrustSectionInView && isPhoneViewport()) {
+            startAutoAdvance();
+          } else if (!isTrustSectionInView) {
+            stopAutoAdvance();
+          }
+        });
+      }, { threshold: 0.05 });
+      trustSectionObserver.observe(trustSection);
+    } else {
+      isTrustSectionInView = true;
+    }
+
+    // Scroll listener fallback to ensure timer runs even if observer timing varies
+    let trustScrollCheckTicking = false;
+    window.addEventListener('scroll', () => {
+      if (!trustScrollCheckTicking) {
+        window.requestAnimationFrame(() => {
+          if (isPhoneViewport()) {
+            if (isSectionVisibleInViewport()) {
+              if (!trustAutoAdvanceTimer) {
+                startAutoAdvance();
+              }
+            } else {
+              stopAutoAdvance();
+            }
+          }
+          trustScrollCheckTicking = false;
+        });
+        trustScrollCheckTicking = true;
+      }
+    }, { passive: true });
+
+    // Tab visibility change (pause on background tab, resume on foreground)
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        stopAutoAdvance();
+      } else if (isPhoneViewport() && isTrustVisible()) {
+        startAutoAdvance();
+      }
+    });
+
+    // Window resize listener
+    window.addEventListener('resize', () => {
+      if (isPhoneViewport()) {
+        if (!trustAutoAdvanceTimer && isTrustVisible()) {
+          startAutoAdvance();
+        }
+      } else {
+        stopAutoAdvance();
+      }
+    });
 
     // Wire up Mobile Milestone Switcher Tabs
     trustPills.forEach((pill, i) => {
       pill.addEventListener('click', (e) => {
         e.preventDefault();
-        if (window.innerWidth <= 768 || !scrollToCard) {
+        resetAutoAdvance();
+        if (isPhoneViewport() || !scrollToCard) {
           updateActiveStep(i);
         } else {
           scrollToCard(i);
@@ -871,36 +1102,55 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Touch Swipe Gesture Navigation for Phone
-    if (trustViewport) {
-      let trustTouchStartX = 0;
-      let trustTouchEndX = 0;
+    const trustSwipeTargets = [trustViewport, document.getElementById('trustPinContainer')].filter(Boolean);
+    let trustTouchStartX = 0;
+    let trustTouchStartY = 0;
 
-      trustViewport.addEventListener('touchstart', (e) => {
-        trustTouchStartX = e.changedTouches[0].screenX;
+    trustSwipeTargets.forEach((targetEl) => {
+      targetEl.addEventListener('touchstart', (e) => {
+        if (!isPhoneViewport()) return;
+        if (e.touches && e.touches.length > 0) {
+          trustTouchStartX = e.touches[0].clientX;
+          trustTouchStartY = e.touches[0].clientY;
+        }
+        stopAutoAdvance();
       }, { passive: true });
 
-      trustViewport.addEventListener('touchend', (e) => {
-        if (window.innerWidth > 768) return;
-        trustTouchEndX = e.changedTouches[0].screenX;
-        const diff = trustTouchEndX - trustTouchStartX;
-        if (Math.abs(diff) > 40) {
-          if (diff < 0) {
-            // Swipe left -> next milestone
-            updateActiveStep(currentCardIdx + 1);
-          } else {
-            // Swipe right -> prev milestone
-            updateActiveStep(currentCardIdx - 1);
+      targetEl.addEventListener('touchend', (e) => {
+        if (!isPhoneViewport()) return;
+        if (e.changedTouches && e.changedTouches.length > 0) {
+          const touchEndX = e.changedTouches[0].clientX;
+          const touchEndY = e.changedTouches[0].clientY;
+          const diffX = touchEndX - trustTouchStartX;
+          const diffY = touchEndY - trustTouchStartY;
+
+          if (Math.abs(diffX) > 35 && Math.abs(diffX) > Math.abs(diffY)) {
+            if (diffX < 0) {
+              // Swipe left -> next milestone
+              updateActiveStep((currentCardIdx + 1) % totalCards);
+            } else {
+              // Swipe right -> prev milestone
+              updateActiveStep((currentCardIdx - 1 + totalCards) % totalCards);
+            }
           }
         }
+        startAutoAdvance();
       }, { passive: true });
-    }
+
+      targetEl.addEventListener('touchcancel', () => {
+        if (isPhoneViewport() && isTrustVisible()) {
+          startAutoAdvance();
+        }
+      }, { passive: true });
+    });
 
     // Prev / Next Button Triggers
     if (trustNextBtn) {
       trustNextBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        if (window.innerWidth <= 768 || !scrollToCard) {
-          updateActiveStep(currentCardIdx + 1);
+        resetAutoAdvance();
+        if (isPhoneViewport() || !scrollToCard) {
+          updateActiveStep((currentCardIdx + 1) % totalCards);
         } else {
           scrollToCard(Math.min(totalCards - 1, currentCardIdx + 1));
         }
@@ -910,8 +1160,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (trustPrevBtn) {
       trustPrevBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        if (window.innerWidth <= 768 || !scrollToCard) {
-          updateActiveStep(currentCardIdx - 1);
+        resetAutoAdvance();
+        if (isPhoneViewport() || !scrollToCard) {
+          updateActiveStep((currentCardIdx - 1 + totalCards) % totalCards);
         } else {
           scrollToCard(Math.max(0, currentCardIdx - 1));
         }
@@ -1025,12 +1276,16 @@ document.addEventListener('DOMContentLoaded', () => {
         "(max-width: 768px)": function() {
           scrollToCard = null;
           updateActiveStep(0);
+          startAutoAdvance();
         }
       });
     }
 
     // Set initial active milestone
     updateActiveStep(0);
+    if (isPhoneViewport()) {
+      startAutoAdvance();
+    }
   }
 
   /* ==========================================================================

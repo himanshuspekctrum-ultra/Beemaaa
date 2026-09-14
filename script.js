@@ -1446,8 +1446,27 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize base positions immediately
     updateOrbitPositions(0);
 
-    // Mobile Touch Gesture Support for effortless spinning
+    // Mobile Touch Gesture Support for effortless spinning & Animated Hand Guide
     if (orbitStageContainer) {
+      const swipeGuide = document.getElementById('orbitMobileSwipeGuide');
+
+      if (swipeGuide) {
+        swipeGuide.addEventListener('click', (e) => {
+          e.stopPropagation();
+          // Gentle animated nudge rotation to demonstrate spinning
+          let step = 0;
+          const nudgeAnimation = () => {
+            if (step < 20) {
+              mobileRotationOffset += 0.015;
+              updateOrbitPositions(0);
+              step++;
+              requestAnimationFrame(nudgeAnimation);
+            }
+          };
+          requestAnimationFrame(nudgeAnimation);
+        });
+      }
+
       orbitStageContainer.addEventListener('touchstart', (e) => {
         if (e.touches && e.touches.length > 0) {
           mobileTouchStartX = e.touches[0].clientX;
@@ -1508,19 +1527,9 @@ document.addEventListener('DOMContentLoaded', () => {
           });
         },
 
-        // Mobile (<= 768px): Unpinned Smooth Viewport Scrub (Zero Pinning, Natural Bottom Section Flow)
+        // Mobile (<= 768px): Zero ScrollTrigger interference; cards rotate exclusively via touch swipe
         "(max-width: 768px)": function() {
-          ScrollTrigger.create({
-            trigger: orbitSection,
-            start: "top 85%",
-            end: "bottom 15%",
-            scrub: 1,
-            onUpdate: (self) => {
-              if (!isMobileSwiping) {
-                updateOrbitPositions(self.progress);
-              }
-            }
-          });
+          // Mobile card rotation is 100% driven by touch swipe gesture
         }
       });
     }

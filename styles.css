@@ -4317,6 +4317,11 @@ a[href="#login"].nav-link:hover {
   }
 }
 
+/* Mobile Animated Swipe Gesture Guide (Default Hidden on Desktop) */
+.orbit-mobile-swipe-guide {
+  display: none;
+}
+
 @media (max-width: 768px) {
   .featured-orbit-section {
     padding: 24px 0 32px 0 !important;
@@ -4367,6 +4372,138 @@ a[href="#login"].nav-link:hover {
   .orbit-text-stream-wrapper {
     display: none !important;
   }
+
+  /* Minimal Animated Hand Swipe Guide on Mobile (No Background) */
+  .orbit-mobile-swipe-guide {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    position: absolute;
+    bottom: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 4px 6px !important;
+    z-index: 60;
+    pointer-events: auto;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+
+  .orbit-mobile-swipe-guide.is-hidden {
+    opacity: 0 !important;
+    transform: translateX(-50%) translateY(8px) !important;
+    pointer-events: none !important;
+  }
+
+  .swipe-hand-motion-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    color: #0f172a !important;
+    animation: swipeHandGlide 2.2s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  }
+
+  .swipe-hand-svg {
+    fill: #0f172a !important;
+    color: #0f172a !important;
+    filter: drop-shadow(0 1px 2px rgba(255, 255, 255, 0.7));
+  }
+
+  .swipe-ripple-glow {
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(15, 23, 42, 0.15) 0%, transparent 70%);
+    animation: swipeRipple 2.2s ease-out infinite;
+    pointer-events: none;
+  }
+
+  .swipe-guide-label {
+    font-family: var(--font-heading, sans-serif);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #0f172a !important;
+    white-space: nowrap;
+    text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9), 0 0 8px rgba(255, 255, 255, 0.8);
+  }
+
+  .swipe-track-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #0f172a !important;
+    filter: drop-shadow(0 1px 2px rgba(255, 255, 255, 0.7));
+    transition: color 0.2s ease;
+  }
+
+  .swipe-track-arrow.left {
+    animation: arrowPulseLeft 2.2s ease-in-out infinite;
+  }
+
+  .swipe-track-arrow.right {
+    animation: arrowPulseRight 2.2s ease-in-out infinite;
+  }
+}
+
+@keyframes arrowPulseLeft {
+  0%, 25% { opacity: 1; transform: translateX(-2px); color: #0f172a; }
+  35%, 85% { opacity: 0.35; transform: translateX(0); color: #0f172a; }
+  95%, 100% { opacity: 1; transform: translateX(-2px); color: #0f172a; }
+}
+
+@keyframes arrowPulseRight {
+  0%, 35% { opacity: 0.35; transform: translateX(0); color: #0f172a; }
+  50%, 75% { opacity: 1; transform: translateX(2px); color: #0f172a; }
+  85%, 100% { opacity: 0.35; transform: translateX(0); color: #0f172a; }
+}
+
+@keyframes swipeHandGlide {
+  0% {
+    transform: translateX(-7px) rotate(-10deg);
+  }
+  25% {
+    transform: translateX(-7px) rotate(-10deg);
+  }
+  50% {
+    transform: translateX(7px) rotate(10deg);
+  }
+  75% {
+    transform: translateX(7px) rotate(10deg);
+  }
+  100% {
+    transform: translateX(-7px) rotate(-10deg);
+  }
+}
+
+@keyframes swipeRipple {
+  0% { transform: scale(0.6); opacity: 0.85; }
+  50% { transform: scale(1.4); opacity: 0; }
+  100% { transform: scale(0.6); opacity: 0; }
+}
+
+@keyframes arrowPulseLeft {
+  0%, 25% { opacity: 1; transform: translateX(-2px); color: #ffd700; }
+  35%, 85% { opacity: 0.35; transform: translateX(0); color: rgba(255, 255, 255, 0.5); }
+  95%, 100% { opacity: 1; transform: translateX(-2px); color: #ffd700; }
+}
+
+@keyframes arrowPulseRight {
+  0%, 35% { opacity: 0.35; transform: translateX(0); color: rgba(255, 255, 255, 0.5); }
+  50%, 75% { opacity: 1; transform: translateX(2px); color: #ffd700; }
+  85%, 100% { opacity: 0.35; transform: translateX(0); color: rgba(255, 255, 255, 0.5); }
 }
 
 @media (max-width: 480px) {

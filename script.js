@@ -226,6 +226,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalCloseBtn = document.getElementById('modalCloseBtn');
   const contactTriggers = document.querySelectorAll('.trigger-contact-modal');
   const contactForm = document.getElementById('contactForm');
+  const productsModalOverlay = document.getElementById('productsModal');
+  const productsModalCloseBtn = document.getElementById('productsModalCloseBtn');
+  const productsModalTriggers = document.querySelectorAll('.trigger-products-modal');
 
   const openModal = () => {
     modalOverlay.classList.add('active');
@@ -239,6 +242,22 @@ document.addEventListener('DOMContentLoaded', () => {
     if (window.lenis) window.lenis.start();
   };
 
+  const openProductsModal = () => {
+    if (!productsModalOverlay) return;
+    productsModalOverlay.classList.add('active');
+    productsModalOverlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    if (window.lenis) window.lenis.stop();
+  };
+
+  const closeProductsModal = () => {
+    if (!productsModalOverlay) return;
+    productsModalOverlay.classList.remove('active');
+    productsModalOverlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (window.lenis) window.lenis.start();
+  };
+
   contactTriggers.forEach(trigger => {
     trigger.addEventListener('click', (e) => {
       e.preventDefault();
@@ -246,8 +265,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  productsModalTriggers.forEach(trigger => {
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      openProductsModal();
+    });
+  });
+
   if (modalCloseBtn) {
     modalCloseBtn.addEventListener('click', closeModal);
+  }
+
+  if (productsModalCloseBtn) {
+    productsModalCloseBtn.addEventListener('click', closeProductsModal);
   }
 
   if (modalOverlay) {
@@ -257,6 +287,22 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  if (productsModalOverlay) {
+    productsModalOverlay.addEventListener('click', (e) => {
+      if (e.target === productsModalOverlay) {
+        closeProductsModal();
+      }
+    });
+
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeModal();
+      closeProductsModal();
+    }
+  });
 
   if (contactForm) {
     contactForm.addEventListener('submit', (e) => {

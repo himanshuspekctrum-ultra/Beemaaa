@@ -1075,8 +1075,9 @@ document.addEventListener('DOMContentLoaded', () => {
               closestCardIndex = i;
             }
 
-            // Desktop: extra large middle focal card (1.80x) with steep drop-off to avoid touching adjacent cards
-            const scale = 0.18 + 1.62 * Math.pow(proximityFactor, 2.2);
+            // Desktop: prominent focal card (1.68x on large screens, 1.58x on mid screens, 1.45x on tablet)
+            const maxFocalScale = isTablet ? 1.45 : (window.innerWidth <= 1280 ? 1.58 : 1.68);
+            const scale = 0.20 + (maxFocalScale - 0.20) * Math.pow(proximityFactor, 2.2);
             const opacity = Math.min(1, Math.max(0, proximityFactor * 1.55));
             const zIndex = Math.round(100 + proximityFactor * 500);
 

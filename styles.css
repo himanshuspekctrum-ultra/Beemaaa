@@ -3224,17 +3224,18 @@ a[href="#login"].nav-link:hover {
 /* Free-Floating Vertical Text Stream (Faded Top & Bottom Effect, Synchronized with 3D Orbit) */
 .orbit-text-stream-wrapper {
   position: absolute;
-  left: calc(50% + 245px);
+  left: calc(50% + 215px);
+  right: clamp(16px, 3.5vw, 40px);
   top: 50%;
   transform: translateY(-50%);
-  width: 480px;
-  max-width: calc(50vw - 40px);
+  width: auto;
+  max-width: 440px;
   height: 220px;
   overflow: hidden;
   pointer-events: none;
   z-index: 800;
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 1) 80%, transparent 100%);
-  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 1) 80%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 1) 18%, rgba(0, 0, 0, 1) 82%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 1) 18%, rgba(0, 0, 0, 1) 82%, transparent 100%);
 }
 
 .orbit-text-stream-track {
@@ -3251,11 +3252,12 @@ a[href="#login"].nav-link:hover {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  opacity: 0.18;
-  transform: scale(0.92);
+  opacity: 0.15;
+  transform: scale(0.94);
   filter: blur(1.5px);
   transition: opacity 0.35s ease, transform 0.35s ease, filter 0.35s ease;
   padding: 8px 0;
+  box-sizing: border-box;
   user-select: none;
 }
 
@@ -3266,7 +3268,7 @@ a[href="#login"].nav-link:hover {
 }
 
 .orbit-stream-tag {
-  font-size: 0.84rem;
+  font-size: 0.82rem;
   font-weight: 700;
   color: #8c8200;
   text-transform: uppercase;
@@ -3284,52 +3286,84 @@ a[href="#login"].nav-link:hover {
   height: 7px;
   border-radius: 50%;
   background: #afa40e;
+  box-shadow: 0 0 8px rgba(175, 164, 14, 0.6);
 }
 
 .orbit-stream-title {
-  font-size: 1.85rem;
+  font-size: clamp(1.45rem, 1.8vw, 1.85rem);
   font-weight: 800;
   color: #111827;
   margin: 0 0 8px 0;
-  line-height: 1.22;
+  line-height: 1.2;
   letter-spacing: -0.015em;
   font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
   width: 100%;
+  text-wrap: balance;
+  word-break: normal;
+  overflow-wrap: break-word;
 }
 
 .orbit-stream-desc {
-  font-size: 1.08rem;
+  font-size: clamp(0.92rem, 1.05vw, 1.04rem);
   font-weight: 450;
   color: #4b5563;
   line-height: 1.55;
   margin: 0;
   width: 100%;
+  max-width: 410px;
+  text-wrap: pretty;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 1366px) {
+  .orbit-text-stream-wrapper {
+    left: calc(50% + 200px);
+    right: 20px;
+    max-width: 410px;
+  }
 }
 
 @media (max-width: 1200px) {
+  .orbit-inner-wrapper {
+    padding: 0 28px;
+  }
   .orbit-text-stream-wrapper {
-    left: calc(50% + 220px);
-    width: 420px;
+    left: calc(50% + 180px);
+    right: 18px;
+    max-width: 380px;
+  }
+  .orbit-stream-title {
+    font-size: 1.55rem;
+  }
+  .orbit-stream-desc {
+    font-size: 0.96rem;
   }
 }
 
 @media (max-width: 1024px) {
+  .orbit-inner-wrapper {
+    padding: 0 20px;
+  }
   .orbit-text-stream-wrapper {
-    left: calc(50% + 175px);
-    width: 380px;
+    left: calc(50% + 145px);
+    right: 16px;
+    width: auto;
+    max-width: 340px;
     height: 190px;
   }
   .orbit-stream-item {
     height: 190px;
   }
   .orbit-stream-title {
-    font-size: 1.55rem;
+    font-size: 1.4rem;
   }
   .orbit-stream-desc {
-    font-size: 0.98rem;
+    font-size: 0.90rem;
+    line-height: 1.48;
   }
   .orbit-stream-tag {
-    font-size: 0.78rem;
+    font-size: 0.76rem;
   }
   .orbit-card-item {
     width: 200px;

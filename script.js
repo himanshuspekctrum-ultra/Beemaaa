@@ -4,24 +4,65 @@
 
 // 0. Page Preloader Dismissal Controller
 (function initPagePreloader() {
-  const dismissPreloader = () => {
-    const preloader = document.getElementById('pagePreloader');
-    if (preloader && !preloader.classList.contains('is-loaded')) {
-      setTimeout(() => {
-        preloader.classList.add('is-loaded');
-        setTimeout(() => {
-          preloader.remove();
-        }, 700);
-      }, 400);
+  const preloader = document.getElementById('pagePreloader');
+  const loaderCount = document.getElementById('loaderCount');
+  let currentCount = 1;
+  let counterComplete = false;
+  let pageReady = document.readyState === 'complete';
+  let dismissed = false;
+
+  const setLoaderCount = (value) => {
+    currentCount = Math.min(100, Math.max(1, value));
+    if (loaderCount) {
+      loaderCount.textContent = String(currentCount);
     }
   };
 
-  if (document.readyState === 'complete') {
+  const dismissPreloader = () => {
+    if (!preloader || dismissed || !counterComplete || !pageReady) return;
+
+    dismissed = true;
+    preloader.classList.add('is-loaded');
+    setTimeout(() => {
+      preloader.remove();
+    }, 700);
+  };
+
+  const runCounter = () => {
+    const counterTimer = setInterval(() => {
+      const nextStep = currentCount < 70 ? 3 : currentCount < 92 ? 2 : 1;
+      setLoaderCount(currentCount + nextStep);
+
+      if (currentCount >= 100) {
+        clearInterval(counterTimer);
+        counterComplete = true;
+        setTimeout(dismissPreloader, 220);
+      }
+    }, 26);
+  };
+
+  setLoaderCount(1);
+  runCounter();
+
+  if (!preloader) return;
+
+  if (pageReady) {
     dismissPreloader();
   } else {
-    window.addEventListener('load', dismissPreloader);
+    window.addEventListener('load', () => {
+      pageReady = true;
+      dismissPreloader();
+    });
+
     // Fallback safety timeout so user is never stuck
-    setTimeout(dismissPreloader, 2500);
+    setTimeout(() => {
+      pageReady = true;
+      if (!counterComplete) {
+        setLoaderCount(100);
+        counterComplete = true;
+      }
+      dismissPreloader();
+    }, 3200);
   }
 })();
 

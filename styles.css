@@ -6535,20 +6535,20 @@ a[href="#login"].nav-link:hover {
 }
 
 /* ==========================================================================
-   7. ULTRA-PREMIUM LIQUID PORTAL PRELOADER
+   7. CLEAN LIGHT THEME PRELOADER
    ========================================================================== */
 .page-preloader {
   position: fixed;
   inset: 0;
   z-index: 9999999;
-  background: radial-gradient(circle at 50% 45%, #141b2d 0%, #090e1a 100%);
   display: flex;
   align-items: center;
   justify-content: center;
+  background: #ffffff;
   opacity: 1;
   visibility: visible;
-  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s;
   pointer-events: all;
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.55s;
 }
 
 .page-preloader.is-loaded {
@@ -6562,190 +6562,76 @@ a[href="#login"].nav-link:hover {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 26px;
-  position: relative;
+  gap: clamp(14px, 3.5vw, 22px);
+  width: min(90vw, 420px);
+  text-align: center;
   user-select: none;
 }
 
-/* Ambient Backlight Flare */
-.loader-backdrop-glow {
-  position: absolute;
-  top: 35px;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 220px;
-  height: 220px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 145, 0, 0.4) 0%, rgba(255, 60, 0, 0.25) 45%, transparent 70%);
-  filter: blur(40px);
-  opacity: 0.85;
-  pointer-events: none;
-  animation: portalPulseGlow 3.5s ease-in-out infinite alternate;
+.loader-school-img {
+  width: clamp(180px, 30vw, 340px);
+  height: clamp(180px, 30vw, 340px);
+  object-fit: contain;
+  animation: loaderFloat 1.9s ease-in-out infinite;
 }
 
-/* Main Liquid Portal Loader */
-.loader {
-  --color-one: #ffc247;
-  --color-two: #ff4800;
-  --color-three: rgba(255, 194, 71, 0.55);
-  --color-four: rgba(255, 72, 0, 0.55);
-  --color-five: rgba(255, 194, 71, 0.25);
-  --time-animation: 2.2s;
-  --size: 1.15;
-  position: relative;
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  transform: scale(var(--size));
-  box-shadow:
-    0 0 35px 0 var(--color-three),
-    0 18px 45px 0 var(--color-four);
-  animation: portalColorize calc(var(--time-animation) * 3) ease-in-out infinite;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Glassmorphic Specular Rim */
-.loader::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  border-top: solid 1.5px var(--color-one);
-  border-bottom: solid 1.5px var(--color-two);
-  background: linear-gradient(180deg, var(--color-five), var(--color-four));
-  box-shadow:
-    inset 0 12px 14px 0 var(--color-three),
-    inset 0 -12px 14px 0 var(--color-four);
-  z-index: 2;
-}
-
-/* Morphing Fluid Core */
-.loader .box {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background: linear-gradient(
-    180deg,
-    var(--color-one) 25%,
-    var(--color-two) 75%
-  );
-  mask: url(#clipping);
-  -webkit-mask: url(#clipping);
-  filter: drop-shadow(0 0 6px var(--color-one));
-}
-
-/* SVG Mask Engine */
-.loader-defs {
-  position: absolute;
-  width: 0;
-  height: 0;
-  pointer-events: none;
-}
-
-.loader-defs #clipping {
-  filter: contrast(16);
-  animation: portalRoundness calc(var(--time-animation) / 2) linear infinite;
-}
-
-.loader-defs #clipping polygon {
-  filter: blur(7px);
-}
-
-.loader-defs #clipping polygon:nth-child(1) {
-  transform-origin: 75% 25%;
-  transform: rotate(90deg);
-}
-
-.loader-defs #clipping polygon:nth-child(2) {
-  transform-origin: 50% 50%;
-  animation: portalRotation var(--time-animation) linear infinite reverse;
-}
-
-.loader-defs #clipping polygon:nth-child(3) {
-  transform-origin: 50% 60%;
-  animation: portalRotation var(--time-animation) linear infinite;
-  animation-delay: calc(var(--time-animation) / -3);
-}
-
-.loader-defs #clipping polygon:nth-child(4) {
-  transform-origin: 40% 40%;
-  animation: portalRotation var(--time-animation) linear infinite reverse;
-}
-
-.loader-defs #clipping polygon:nth-child(5) {
-  transform-origin: 40% 40%;
-  animation: portalRotation var(--time-animation) linear infinite reverse;
-  animation-delay: calc(var(--time-animation) / -2);
-}
-
-.loader-defs #clipping polygon:nth-child(6) {
-  transform-origin: 60% 40%;
-  animation: portalRotation var(--time-animation) linear infinite;
-}
-
-.loader-defs #clipping polygon:nth-child(7) {
-  transform-origin: 60% 40%;
-  animation: portalRotation var(--time-animation) linear infinite;
-  animation-delay: calc(var(--time-animation) / -1.5);
-}
-
-/* Branding Badge Beneath Loader */
-.loader-brand-badge {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  z-index: 5;
-}
-
-.loader-brand-title {
+.loader-count {
   font-family: var(--font-heading, 'Outfit', sans-serif);
-  font-size: 1.45rem;
+  font-size: clamp(2.1rem, 8vw, 4rem);
   font-weight: 800;
-  letter-spacing: 0.08em;
-  background: linear-gradient(135deg, #ffffff 30%, #ffc247 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-transform: uppercase;
+  line-height: 0.95;
+  letter-spacing: 0;
+  color: #0f172a;
+  font-variant-numeric: tabular-nums;
+  animation: loaderNumberGlow 1.3s ease-in-out infinite alternate;
 }
 
-.loader-brand-sub {
-  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.55);
+@media (max-width: 768px) {
+  .loader-wrapper {
+    width: min(92vw, 330px);
+  }
+
+  .loader-school-img {
+    width: clamp(190px, 62vw, 280px);
+    height: clamp(190px, 62vw, 280px);
+  }
+
+  .loader-count {
+    font-size: clamp(2rem, 12vw, 3.4rem);
+  }
 }
 
-/* Keyframe Animations */
-@keyframes portalRotation {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+@media (max-width: 400px) {
+  .loader-wrapper {
+    gap: 12px;
+  }
+
+  .loader-school-img {
+    width: min(72vw, 245px);
+    height: min(72vw, 245px);
+  }
 }
 
-@keyframes portalRoundness {
-  0%, 100% { filter: contrast(16); }
-  25% { filter: contrast(4); }
-  60% { filter: contrast(16); }
+@keyframes loaderFloat {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    filter: drop-shadow(0 18px 24px rgba(15, 23, 42, 0.06));
+  }
+  50% {
+    transform: translateY(-9px) scale(1.015);
+    filter: drop-shadow(0 24px 28px rgba(175, 164, 14, 0.12));
+  }
 }
 
-@keyframes portalColorize {
-  0%   { filter: hue-rotate(0deg) saturate(1); }
-  25%  { filter: hue-rotate(-25deg) saturate(1.25); }
-  50%  { filter: hue-rotate(-50deg) saturate(1.15); }
-  75%  { filter: hue-rotate(-30deg) saturate(1.3); }
-  100% { filter: hue-rotate(0deg) saturate(1); }
-}
-
-@keyframes portalPulseGlow {
-  0% { transform: translate(-50%, -50%) scale(0.85); opacity: 0.6; }
-  100% { transform: translate(-50%, -50%) scale(1.18); opacity: 0.95; }
+@keyframes loaderNumberGlow {
+  0% {
+    opacity: 0.72;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
 }
 
 
